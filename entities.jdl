@@ -1,0 +1,15 @@
+entity Navigation{
+    sequence Integer unique,
+    route String required,
+    title String required,
+    breadCrumb String,
+    roles String required
+}
+
+relationship ManyToOne{
+    Navigation{parent(title)} to Navigation
+}
+
+
+service * with serviceClass
+paginate * with pagination

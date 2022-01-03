@@ -40,6 +40,8 @@
     "clientPackageManager": "npm",
     "clientThemeVariant": "",
     "enableGradleEnterprise": false,
-    "languages": ["en", "fr"]
+    "languages": ["en", "fr"],
+    "entities": ["Navigation"],
+    "lastLiquibaseTimestamp": 1641182418000
   }
 }

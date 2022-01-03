@@ -1,0 +1,50 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="navigation">
+      <h2 data-cy="navigationDetailsHeading"><span>Navigation</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ navigation.id }}</span>
+        </dd>
+        <dt><span>Sequence</span></dt>
+        <dd>
+          <span>{{ navigation.sequence }}</span>
+        </dd>
+        <dt><span>Route</span></dt>
+        <dd>
+          <span>{{ navigation.route }}</span>
+        </dd>
+        <dt><span>Title</span></dt>
+        <dd>
+          <span>{{ navigation.title }}</span>
+        </dd>
+        <dt><span>Bread Crumb</span></dt>
+        <dd>
+          <span>{{ navigation.breadCrumb }}</span>
+        </dd>
+        <dt><span>Parent</span></dt>
+        <dd>
+          <div *ngIf="navigation.parent">
+            <a [routerLink]="['/navigation', navigation.parent?.id, 'view']">{{ navigation.parent?.title }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/navigation', navigation.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

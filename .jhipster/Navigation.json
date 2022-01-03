@@ -1,0 +1,43 @@
+{
+  "name": "Navigation",
+  "fields": [
+    {
+      "fieldName": "sequence",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["unique"]
+    },
+    {
+      "fieldName": "route",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "breadCrumb",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "navigation",
+      "otherEntityRelationshipName": "navigation",
+      "relationshipName": "parent",
+      "otherEntityField": "title"
+    }
+  ],
+  "entityTableName": "navigation",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220103040018"
+}
