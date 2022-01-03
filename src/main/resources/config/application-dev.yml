@@ -32,7 +32,7 @@ spring:
       indent-output: true
   data:
     mongodb:
-      uri: mongodb://localhost:27017/?waitQueueMultiple=1000
+      uri: mongodb://localhost:27018/?waitQueueMultiple=1000
       database: BanbeisBlog
   mail:
     host: localhost

@@ -108,6 +108,7 @@
   },
   "defaultProject": "banbeis-blog",
   "cli": {
+    "analytics": "0bc66a6c-5ecc-4758-b81b-6d8d87953bdf",
     "cache": {
       "enabled": true,
       "path": "./target/",
