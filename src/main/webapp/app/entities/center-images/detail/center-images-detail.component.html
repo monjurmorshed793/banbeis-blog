@@ -1,0 +1,59 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="centerImages">
+      <h2 data-cy="centerImagesDetailsHeading"><span>Center Images</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ centerImages.id }}</span>
+        </dd>
+        <dt><span>Image</span></dt>
+        <dd>
+          <div *ngIf="centerImages.image">
+            <a (click)="openFile(centerImages.image, centerImages.imageContentType)">
+              <img
+                [src]="'data:' + centerImages.imageContentType + ';base64,' + centerImages.image"
+                style="max-width: 100%"
+                alt="centerImages image"
+              />
+            </a>
+            {{ centerImages.imageContentType }}, {{ byteSize(centerImages.image) }}
+          </div>
+        </dd>
+        <dt><span>Title</span></dt>
+        <dd>
+          <span>{{ centerImages.title }}</span>
+        </dd>
+        <dt><span>Description</span></dt>
+        <dd>
+          <span>{{ centerImages.description }}</span>
+        </dd>
+        <dt><span>Show</span></dt>
+        <dd>
+          <span>{{ centerImages.show }}</span>
+        </dd>
+        <dt><span>Center</span></dt>
+        <dd>
+          <div *ngIf="centerImages.center">
+            <a [routerLink]="['/center', centerImages.center?.id, 'view']">{{ centerImages.center?.name }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/center-images', centerImages.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -33,6 +33,10 @@ public class Navigation implements Serializable {
     @Field("bread_crumb")
     private String breadCrumb;
 
+    @NotNull(message = "must not be null")
+    @Field("roles")
+    private String roles;
+
     @DBRef
     @Field("parent")
     @JsonIgnoreProperties(value = { "parent" }, allowSetters = true)
@@ -105,6 +109,19 @@ public class Navigation implements Serializable {
         this.breadCrumb = breadCrumb;
     }
 
+    public String getRoles() {
+        return this.roles;
+    }
+
+    public Navigation roles(String roles) {
+        this.setRoles(roles);
+        return this;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+
     public Navigation getParent() {
         return this.parent;
     }
@@ -146,6 +163,7 @@ public class Navigation implements Serializable {
             ", route='" + getRoute() + "'" +
             ", title='" + getTitle() + "'" +
             ", breadCrumb='" + getBreadCrumb() + "'" +
+            ", roles='" + getRoles() + "'" +
             "}";
     }
 }

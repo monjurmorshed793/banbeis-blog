@@ -1,0 +1,48 @@
+{
+  "name": "District",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "bnName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lat",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lon",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "url",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "division",
+      "otherEntityRelationshipName": "district",
+      "relationshipName": "division",
+      "otherEntityField": "name"
+    }
+  ],
+  "entityTableName": "district",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220105112307"
+}

@@ -1,0 +1,34 @@
+{
+  "name": "PostComment",
+  "fields": [
+    {
+      "fieldName": "commentedBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "comment",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "commentType",
+      "fieldType": "CommentType",
+      "fieldValues": "INITIAL_COMMENT,REPLY"
+    },
+    {
+      "fieldName": "commentedOn",
+      "fieldType": "Instant"
+    }
+  ],
+  "relationships": [],
+  "entityTableName": "post_comment",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220105112316"
+}

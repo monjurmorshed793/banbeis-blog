@@ -25,6 +25,7 @@ describe('Navigation Service', () => {
       route: 'AAAAAAA',
       title: 'AAAAAAA',
       breadCrumb: 'AAAAAAA',
+      roles: 'AAAAAAA',
     };
   });
 
@@ -64,6 +65,7 @@ describe('Navigation Service', () => {
           route: 'BBBBBB',
           title: 'BBBBBB',
           breadCrumb: 'BBBBBB',
+          roles: 'BBBBBB',
         },
         elemDefault
       );
@@ -104,6 +106,7 @@ describe('Navigation Service', () => {
           route: 'BBBBBB',
           title: 'BBBBBB',
           breadCrumb: 'BBBBBB',
+          roles: 'BBBBBB',
         },
         elemDefault
       );
@@ -155,7 +158,7 @@ describe('Navigation Service', () => {
       });
 
       it('should add only unique Navigation to an array', () => {
-        const navigationArray: INavigation[] = [{ id: 'ABC' }, { id: 'CBA' }, { id: '67d63b20-8b7a-4ebf-9792-b20436b2e454' }];
+        const navigationArray: INavigation[] = [{ id: 'ABC' }, { id: 'CBA' }, { id: '7d63b208-b7ae-4bf9-b92b-20436b2e454c' }];
         const navigationCollection: INavigation[] = [{ id: 'ABC' }];
         expectedResult = service.addNavigationToCollectionIfMissing(navigationCollection, ...navigationArray);
         expect(expectedResult).toHaveLength(3);

@@ -37,6 +37,7 @@
           <th scope="col" jhiSortBy="route"><span>Route</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="title"><span>Title</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="breadCrumb"><span>Bread Crumb</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="roles"><span>Roles</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="parent.title"><span>Parent</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col"></th>
         </tr>
@@ -50,6 +51,7 @@
           <td>{{ navigation.route }}</td>
           <td>{{ navigation.title }}</td>
           <td>{{ navigation.breadCrumb }}</td>
+          <td>{{ navigation.roles }}</td>
           <td>
             <div *ngIf="navigation.parent">
               <a [routerLink]="['/navigation', navigation.parent?.id, 'view']">{{ navigation.parent?.title }}</a>

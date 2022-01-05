@@ -38,6 +38,9 @@ class NavigationResourceIT {
     private static final String DEFAULT_BREAD_CRUMB = "AAAAAAAAAA";
     private static final String UPDATED_BREAD_CRUMB = "BBBBBBBBBB";
 
+    private static final String DEFAULT_ROLES = "AAAAAAAAAA";
+    private static final String UPDATED_ROLES = "BBBBBBBBBB";
+
     private static final String ENTITY_API_URL = "/api/navigations";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -60,7 +63,8 @@ class NavigationResourceIT {
             .sequence(DEFAULT_SEQUENCE)
             .route(DEFAULT_ROUTE)
             .title(DEFAULT_TITLE)
-            .breadCrumb(DEFAULT_BREAD_CRUMB);
+            .breadCrumb(DEFAULT_BREAD_CRUMB)
+            .roles(DEFAULT_ROLES);
         return navigation;
     }
 
@@ -75,7 +79,8 @@ class NavigationResourceIT {
             .sequence(UPDATED_SEQUENCE)
             .route(UPDATED_ROUTE)
             .title(UPDATED_TITLE)
-            .breadCrumb(UPDATED_BREAD_CRUMB);
+            .breadCrumb(UPDATED_BREAD_CRUMB)
+            .roles(UPDATED_ROLES);
         return navigation;
     }
 
@@ -106,6 +111,7 @@ class NavigationResourceIT {
         assertThat(testNavigation.getRoute()).isEqualTo(DEFAULT_ROUTE);
         assertThat(testNavigation.getTitle()).isEqualTo(DEFAULT_TITLE);
         assertThat(testNavigation.getBreadCrumb()).isEqualTo(DEFAULT_BREAD_CRUMB);
+        assertThat(testNavigation.getRoles()).isEqualTo(DEFAULT_ROLES);
     }
 
     @Test
@@ -173,6 +179,27 @@ class NavigationResourceIT {
     }
 
     @Test
+    void checkRolesIsRequired() throws Exception {
+        int databaseSizeBeforeTest = navigationRepository.findAll().collectList().block().size();
+        // set the field null
+        navigation.setRoles(null);
+
+        // Create the Navigation, which fails.
+
+        webTestClient
+            .post()
+            .uri(ENTITY_API_URL)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(TestUtil.convertObjectToJsonBytes(navigation))
+            .exchange()
+            .expectStatus()
+            .isBadRequest();
+
+        List<Navigation> navigationList = navigationRepository.findAll().collectList().block();
+        assertThat(navigationList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
     void getAllNavigations() {
         // Initialize the database
         navigationRepository.save(navigation).block();
@@ -197,7 +224,9 @@ class NavigationResourceIT {
             .jsonPath("$.[*].title")
             .value(hasItem(DEFAULT_TITLE))
             .jsonPath("$.[*].breadCrumb")
-            .value(hasItem(DEFAULT_BREAD_CRUMB));
+            .value(hasItem(DEFAULT_BREAD_CRUMB))
+            .jsonPath("$.[*].roles")
+            .value(hasItem(DEFAULT_ROLES));
     }
 
     @Test
@@ -225,7 +254,9 @@ class NavigationResourceIT {
             .jsonPath("$.title")
             .value(is(DEFAULT_TITLE))
             .jsonPath("$.breadCrumb")
-            .value(is(DEFAULT_BREAD_CRUMB));
+            .value(is(DEFAULT_BREAD_CRUMB))
+            .jsonPath("$.roles")
+            .value(is(DEFAULT_ROLES));
     }
 
     @Test
@@ -249,7 +280,12 @@ class NavigationResourceIT {
 
         // Update the navigation
         Navigation updatedNavigation = navigationRepository.findById(navigation.getId()).block();
-        updatedNavigation.sequence(UPDATED_SEQUENCE).route(UPDATED_ROUTE).title(UPDATED_TITLE).breadCrumb(UPDATED_BREAD_CRUMB);
+        updatedNavigation
+            .sequence(UPDATED_SEQUENCE)
+            .route(UPDATED_ROUTE)
+            .title(UPDATED_TITLE)
+            .breadCrumb(UPDATED_BREAD_CRUMB)
+            .roles(UPDATED_ROLES);
 
         webTestClient
             .put()
@@ -268,6 +304,7 @@ class NavigationResourceIT {
         assertThat(testNavigation.getRoute()).isEqualTo(UPDATED_ROUTE);
         assertThat(testNavigation.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testNavigation.getBreadCrumb()).isEqualTo(UPDATED_BREAD_CRUMB);
+        assertThat(testNavigation.getRoles()).isEqualTo(UPDATED_ROLES);
     }
 
     @Test
@@ -360,6 +397,7 @@ class NavigationResourceIT {
         assertThat(testNavigation.getRoute()).isEqualTo(DEFAULT_ROUTE);
         assertThat(testNavigation.getTitle()).isEqualTo(DEFAULT_TITLE);
         assertThat(testNavigation.getBreadCrumb()).isEqualTo(UPDATED_BREAD_CRUMB);
+        assertThat(testNavigation.getRoles()).isEqualTo(DEFAULT_ROLES);
     }
 
     @Test
@@ -373,7 +411,12 @@ class NavigationResourceIT {
         Navigation partialUpdatedNavigation = new Navigation();
         partialUpdatedNavigation.setId(navigation.getId());
 
-        partialUpdatedNavigation.sequence(UPDATED_SEQUENCE).route(UPDATED_ROUTE).title(UPDATED_TITLE).breadCrumb(UPDATED_BREAD_CRUMB);
+        partialUpdatedNavigation
+            .sequence(UPDATED_SEQUENCE)
+            .route(UPDATED_ROUTE)
+            .title(UPDATED_TITLE)
+            .breadCrumb(UPDATED_BREAD_CRUMB)
+            .roles(UPDATED_ROLES);
 
         webTestClient
             .patch()
@@ -392,6 +435,7 @@ class NavigationResourceIT {
         assertThat(testNavigation.getRoute()).isEqualTo(UPDATED_ROUTE);
         assertThat(testNavigation.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testNavigation.getBreadCrumb()).isEqualTo(UPDATED_BREAD_CRUMB);
+        assertThat(testNavigation.getRoles()).isEqualTo(UPDATED_ROLES);
     }
 
     @Test

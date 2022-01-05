@@ -1,0 +1,50 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="centerEmployee">
+      <h2 data-cy="centerEmployeeDetailsHeading"><span>Center Employee</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ centerEmployee.id }}</span>
+        </dd>
+        <dt><span>Duty Type</span></dt>
+        <dd>
+          <span>{{ centerEmployee.dutyType }}</span>
+        </dd>
+        <dt><span>Joining Date</span></dt>
+        <dd>
+          <span>{{ centerEmployee.joiningDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Release Date</span></dt>
+        <dd>
+          <span>{{ centerEmployee.releaseDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Message</span></dt>
+        <dd>
+          <span>{{ centerEmployee.message }}</span>
+        </dd>
+        <dt><span>Designation</span></dt>
+        <dd>
+          <div *ngIf="centerEmployee.designation">
+            <a [routerLink]="['/designation', centerEmployee.designation?.id, 'view']">{{ centerEmployee.designation?.name }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/center-employee', centerEmployee.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

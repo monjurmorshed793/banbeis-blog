@@ -19,6 +19,11 @@
     {
       "fieldName": "breadCrumb",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "roles",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
     }
   ],
   "relationships": [

@@ -23,6 +23,7 @@ export class NavigationUpdateComponent implements OnInit {
     route: [null, [Validators.required]],
     title: [null, [Validators.required]],
     breadCrumb: [],
+    roles: [null, [Validators.required]],
     parent: [],
   });
 
@@ -80,6 +81,7 @@ export class NavigationUpdateComponent implements OnInit {
       route: navigation.route,
       title: navigation.title,
       breadCrumb: navigation.breadCrumb,
+      roles: navigation.roles,
       parent: navigation.parent,
     });
 
@@ -109,6 +111,7 @@ export class NavigationUpdateComponent implements OnInit {
       route: this.editForm.get(['route'])!.value,
       title: this.editForm.get(['title'])!.value,
       breadCrumb: this.editForm.get(['breadCrumb'])!.value,
+      roles: this.editForm.get(['roles'])!.value,
       parent: this.editForm.get(['parent'])!.value,
     };
   }

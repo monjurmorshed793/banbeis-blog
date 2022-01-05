@@ -1,0 +1,60 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="post">
+      <h2 data-cy="postDetailsHeading"><span>Post</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ post.id }}</span>
+        </dd>
+        <dt><span>Post Date</span></dt>
+        <dd>
+          <span>{{ post.postDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Title</span></dt>
+        <dd>
+          <span>{{ post.title }}</span>
+        </dd>
+        <dt><span>Body</span></dt>
+        <dd>
+          <span>{{ post.body }}</span>
+        </dd>
+        <dt><span>Publish</span></dt>
+        <dd>
+          <span>{{ post.publish }}</span>
+        </dd>
+        <dt><span>Published On</span></dt>
+        <dd>
+          <span>{{ post.publishedOn | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Center</span></dt>
+        <dd>
+          <div *ngIf="post.center">
+            <a [routerLink]="['/center', post.center?.id, 'view']">{{ post.center?.name }}</a>
+          </div>
+        </dd>
+        <dt><span>Employee</span></dt>
+        <dd>
+          <div *ngIf="post.employee">
+            <a [routerLink]="['/employee', post.employee?.id, 'view']">{{ post.employee?.fullName }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/post', post.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

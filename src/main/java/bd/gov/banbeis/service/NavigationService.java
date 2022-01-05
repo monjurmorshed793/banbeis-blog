@@ -58,6 +58,9 @@ public class NavigationService {
                 if (navigation.getBreadCrumb() != null) {
                     existingNavigation.setBreadCrumb(navigation.getBreadCrumb());
                 }
+                if (navigation.getRoles() != null) {
+                    existingNavigation.setRoles(navigation.getRoles());
+                }
 
                 return existingNavigation;
             })

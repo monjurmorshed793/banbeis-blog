@@ -1,0 +1,69 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="postPhoto">
+      <h2 data-cy="postPhotoDetailsHeading"><span>Post Photo</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ postPhoto.id }}</span>
+        </dd>
+        <dt><span>Sequence</span></dt>
+        <dd>
+          <span>{{ postPhoto.sequence }}</span>
+        </dd>
+        <dt><span>Title</span></dt>
+        <dd>
+          <span>{{ postPhoto.title }}</span>
+        </dd>
+        <dt><span>Description</span></dt>
+        <dd>
+          <span>{{ postPhoto.description }}</span>
+        </dd>
+        <dt><span>Image</span></dt>
+        <dd>
+          <div *ngIf="postPhoto.image">
+            <a (click)="openFile(postPhoto.image, postPhoto.imageContentType)">
+              <img
+                [src]="'data:' + postPhoto.imageContentType + ';base64,' + postPhoto.image"
+                style="max-width: 100%"
+                alt="postPhoto image"
+              />
+            </a>
+            {{ postPhoto.imageContentType }}, {{ byteSize(postPhoto.image) }}
+          </div>
+        </dd>
+        <dt><span>Uploaded On</span></dt>
+        <dd>
+          <span>{{ postPhoto.uploadedOn | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Post</span></dt>
+        <dd>
+          <div *ngIf="postPhoto.post">
+            <a [routerLink]="['/post', postPhoto.post?.id, 'view']">{{ postPhoto.post?.title }}</a>
+          </div>
+        </dd>
+        <dt><span>Uploaded By</span></dt>
+        <dd>
+          <div *ngIf="postPhoto.uploadedBy">
+            <a [routerLink]="['/employee', postPhoto.uploadedBy?.id, 'view']">{{ postPhoto.uploadedBy?.fullName }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/post-photo', postPhoto.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

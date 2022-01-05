@@ -51,11 +51,11 @@ entity Employee{
     bnFullName String required,
     //designation
     mobile String required,
-    email String email required,
+    email String required,
     photo ImageBlob,
 }
 
-DutyType{
+enum DutyType{
     MAIN(Main),
     ADDITIONAL(Additional)
 }
@@ -63,10 +63,11 @@ DutyType{
 entity CenterEmployee{
     //center
     //employee
+    dutyType DutyType,
     joiningDate LocalDate,
     releaseDate LocalDate,
     //designation
-    message
+    message TextBlob
 }
 
 entity CenterImages{
@@ -83,7 +84,7 @@ entity Post{
     postDate LocalDate,
     title String,
     body TextBlob,
-    publish boolean,
+    publish Boolean,
     publishedOn Instant
 }
 

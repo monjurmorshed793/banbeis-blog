@@ -1,0 +1,54 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="district">
+      <h2 data-cy="districtDetailsHeading"><span>District</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>Id</span></dt>
+        <dd>
+          <span>{{ district.id }}</span>
+        </dd>
+        <dt><span>Name</span></dt>
+        <dd>
+          <span>{{ district.name }}</span>
+        </dd>
+        <dt><span>Bn Name</span></dt>
+        <dd>
+          <span>{{ district.bnName }}</span>
+        </dd>
+        <dt><span>Lat</span></dt>
+        <dd>
+          <span>{{ district.lat }}</span>
+        </dd>
+        <dt><span>Lon</span></dt>
+        <dd>
+          <span>{{ district.lon }}</span>
+        </dd>
+        <dt><span>Url</span></dt>
+        <dd>
+          <span>{{ district.url }}</span>
+        </dd>
+        <dt><span>Division</span></dt>
+        <dd>
+          <div *ngIf="district.division">
+            <a [routerLink]="['/division', district.division?.id, 'view']">{{ district.division?.name }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/district', district.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

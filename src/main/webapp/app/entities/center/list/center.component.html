@@ -1,0 +1,113 @@
+<div>
+  <h2 id="page-heading" data-cy="CenterHeading">
+    <span>Centers</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-center"
+        [routerLink]="['/center/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Center </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="centers?.length === 0">
+    <span>No centers found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="centers && centers.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="name"><span>Name</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="addressLine"><span>Address Line</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="image"><span>Image</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="division.name"><span>Division</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="district.name"><span>District</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="upazila.name"><span>Upazila</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let center of centers; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/center', center.id, 'view']">{{ center.id }}</a>
+          </td>
+          <td>{{ center.name }}</td>
+          <td>{{ center.addressLine }}</td>
+          <td>
+            <a *ngIf="center.image" (click)="openFile(center.image, center.imageContentType)">
+              <img [src]="'data:' + center.imageContentType + ';base64,' + center.image" style="max-height: 30px" alt="center image" />
+            </a>
+            <span *ngIf="center.image">{{ center.imageContentType }}, {{ byteSize(center.image) }}</span>
+          </td>
+          <td>
+            <div *ngIf="center.division">
+              <a [routerLink]="['/division', center.division?.id, 'view']">{{ center.division?.name }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="center.district">
+              <a [routerLink]="['/district', center.district?.id, 'view']">{{ center.district?.name }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="center.upazila">
+              <a [routerLink]="['/upazila', center.upazila?.id, 'view']">{{ center.upazila?.name }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/center', center.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/center', center.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(center)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="centers && centers.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

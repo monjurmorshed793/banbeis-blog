@@ -4,6 +4,7 @@ export interface INavigation {
   route?: string;
   title?: string;
   breadCrumb?: string | null;
+  roles?: string;
   parent?: INavigation | null;
 }
 
@@ -14,6 +15,7 @@ export class Navigation implements INavigation {
     public route?: string,
     public title?: string,
     public breadCrumb?: string | null,
+    public roles?: string,
     public parent?: INavigation | null
   ) {}
 }
