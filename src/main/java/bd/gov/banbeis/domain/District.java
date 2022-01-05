@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * A District.
  */
 @Document(collection = "district")
-public class District implements Serializable {
+public class District extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

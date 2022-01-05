@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * A Upazila.
  */
 @Document(collection = "upazila")
-public class Upazila implements Serializable {
+public class Upazila extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

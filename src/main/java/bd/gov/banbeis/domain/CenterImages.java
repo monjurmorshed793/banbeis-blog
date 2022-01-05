@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * A CenterImages.
  */
 @Document(collection = "center_images")
-public class CenterImages implements Serializable {
+public class CenterImages extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

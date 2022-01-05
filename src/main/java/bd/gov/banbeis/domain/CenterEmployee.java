@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * A CenterEmployee.
  */
 @Document(collection = "center_employee")
-public class CenterEmployee implements Serializable {
+public class CenterEmployee extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

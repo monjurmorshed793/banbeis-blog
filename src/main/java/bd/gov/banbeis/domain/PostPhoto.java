@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * A PostPhoto.
  */
 @Document(collection = "post_photo")
-public class PostPhoto implements Serializable {
+public class PostPhoto extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

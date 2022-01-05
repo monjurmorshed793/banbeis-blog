@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * A Center.
  */
 @Document(collection = "center")
-public class Center implements Serializable {
+public class Center extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

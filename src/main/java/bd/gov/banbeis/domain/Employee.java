@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * A Employee.
  */
 @Document(collection = "employee")
-public class Employee implements Serializable {
+public class Employee extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

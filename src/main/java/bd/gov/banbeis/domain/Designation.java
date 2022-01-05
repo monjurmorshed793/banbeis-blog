@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * A Designation.
  */
 @Document(collection = "designation")
-public class Designation implements Serializable {
+public class Designation extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
