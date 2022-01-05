@@ -8,8 +8,6 @@ import { of, Subject, from } from 'rxjs';
 
 import { UpazilaService } from '../service/upazila.service';
 import { IUpazila, Upazila } from '../upazila.model';
-import { IDistrict } from 'app/entities/district/district.model';
-import { DistrictService } from 'app/entities/district/service/district.service';
 
 import { UpazilaUpdateComponent } from './upazila-update.component';
 
@@ -18,7 +16,6 @@ describe('Upazila Management Update Component', () => {
   let fixture: ComponentFixture<UpazilaUpdateComponent>;
   let activatedRoute: ActivatedRoute;
   let upazilaService: UpazilaService;
-  let districtService: DistrictService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -40,41 +37,18 @@ describe('Upazila Management Update Component', () => {
     fixture = TestBed.createComponent(UpazilaUpdateComponent);
     activatedRoute = TestBed.inject(ActivatedRoute);
     upazilaService = TestBed.inject(UpazilaService);
-    districtService = TestBed.inject(DistrictService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should call District query and add missing value', () => {
-      const upazila: IUpazila = { id: 'CBA' };
-      const district: IDistrict = { id: '6ab9b46f-d061-49f8-a237-18a28c5738aa' };
-      upazila.district = district;
-
-      const districtCollection: IDistrict[] = [{ id: '5c8b1f38-d77b-4f52-86a2-5cdde99cee86' }];
-      jest.spyOn(districtService, 'query').mockReturnValue(of(new HttpResponse({ body: districtCollection })));
-      const additionalDistricts = [district];
-      const expectedCollection: IDistrict[] = [...additionalDistricts, ...districtCollection];
-      jest.spyOn(districtService, 'addDistrictToCollectionIfMissing').mockReturnValue(expectedCollection);
-
-      activatedRoute.data = of({ upazila });
-      comp.ngOnInit();
-
-      expect(districtService.query).toHaveBeenCalled();
-      expect(districtService.addDistrictToCollectionIfMissing).toHaveBeenCalledWith(districtCollection, ...additionalDistricts);
-      expect(comp.districtsSharedCollection).toEqual(expectedCollection);
-    });
-
     it('Should update editForm', () => {
       const upazila: IUpazila = { id: 'CBA' };
-      const district: IDistrict = { id: '298da5cc-afda-44a5-abce-6b06f03cf4f1' };
-      upazila.district = district;
 
       activatedRoute.data = of({ upazila });
       comp.ngOnInit();
 
       expect(comp.editForm.value).toEqual(expect.objectContaining(upazila));
-      expect(comp.districtsSharedCollection).toContain(district);
     });
   });
 
@@ -139,16 +113,6 @@ describe('Upazila Management Update Component', () => {
       expect(upazilaService.update).toHaveBeenCalledWith(upazila);
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('Tracking relationships identifiers', () => {
-    describe('trackDistrictById', () => {
-      it('Should return tracked District primary key', () => {
-        const entity = { id: 'ABC' };
-        const trackResult = comp.trackDistrictById(0, entity);
-        expect(trackResult).toEqual(entity.id);
-      });
     });
   });
 });

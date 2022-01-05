@@ -33,10 +33,10 @@
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
           <th scope="col" jhiSortBy="id"><span>Id</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="districtId"><span>District Id</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="name"><span>Name</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="bnName"><span>Bn Name</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="url"><span>Url</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="district.name"><span>District</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -45,14 +45,10 @@
           <td>
             <a [routerLink]="['/upazila', upazila.id, 'view']">{{ upazila.id }}</a>
           </td>
+          <td>{{ upazila.districtId }}</td>
           <td>{{ upazila.name }}</td>
           <td>{{ upazila.bnName }}</td>
           <td>{{ upazila.url }}</td>
-          <td>
-            <div *ngIf="upazila.district">
-              <a [routerLink]="['/district', upazila.district?.id, 'view']">{{ upazila.district?.name }}</a>
-            </div>
-          </td>
           <td class="text-right">
             <div class="btn-group">
               <button

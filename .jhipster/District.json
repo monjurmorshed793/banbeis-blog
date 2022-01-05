@@ -6,6 +6,10 @@
       "fieldType": "String"
     },
     {
+      "fieldName": "divisionId",
+      "fieldType": "String"
+    },
+    {
       "fieldName": "name",
       "fieldType": "String"
     },
@@ -26,15 +30,7 @@
       "fieldType": "String"
     }
   ],
-  "relationships": [
-    {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "division",
-      "otherEntityRelationshipName": "district",
-      "relationshipName": "division",
-      "otherEntityField": "name"
-    }
-  ],
+  "relationships": [],
   "entityTableName": "district",
   "dto": "no",
   "pagination": "pagination",

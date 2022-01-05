@@ -2,7 +2,6 @@ package bd.gov.banbeis.domain;
 
 import java.io.Serializable;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -10,12 +9,15 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * A District.
  */
 @Document(collection = "district")
-public class District extends AbstractAuditingEntity implements Serializable {
+public class District implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     private String id;
+
+    @Field("division_id")
+    private String divisionId;
 
     @Field("name")
     private String name;
@@ -32,10 +34,6 @@ public class District extends AbstractAuditingEntity implements Serializable {
     @Field("url")
     private String url;
 
-    @DBRef
-    @Field("division")
-    private Division division;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public String getId() {
@@ -49,6 +47,19 @@ public class District extends AbstractAuditingEntity implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getDivisionId() {
+        return this.divisionId;
+    }
+
+    public District divisionId(String divisionId) {
+        this.setDivisionId(divisionId);
+        return this;
+    }
+
+    public void setDivisionId(String divisionId) {
+        this.divisionId = divisionId;
     }
 
     public String getName() {
@@ -116,19 +127,6 @@ public class District extends AbstractAuditingEntity implements Serializable {
         this.url = url;
     }
 
-    public Division getDivision() {
-        return this.division;
-    }
-
-    public void setDivision(Division division) {
-        this.division = division;
-    }
-
-    public District division(Division division) {
-        this.setDivision(division);
-        return this;
-    }
-
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -153,6 +151,7 @@ public class District extends AbstractAuditingEntity implements Serializable {
     public String toString() {
         return "District{" +
             "id=" + getId() +
+            ", divisionId='" + getDivisionId() + "'" +
             ", name='" + getName() + "'" +
             ", bnName='" + getBnName() + "'" +
             ", lat='" + getLat() + "'" +

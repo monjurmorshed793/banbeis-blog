@@ -46,6 +46,9 @@ public class UpazilaService {
         return upazilaRepository
             .findById(upazila.getId())
             .map(existingUpazila -> {
+                if (upazila.getDistrictId() != null) {
+                    existingUpazila.setDistrictId(upazila.getDistrictId());
+                }
                 if (upazila.getName() != null) {
                     existingUpazila.setName(upazila.getName());
                 }

@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * A Navigation.
  */
 @Document(collection = "navigation")
-public class Navigation extends AbstractAuditingEntity implements Serializable {
+public class Navigation implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

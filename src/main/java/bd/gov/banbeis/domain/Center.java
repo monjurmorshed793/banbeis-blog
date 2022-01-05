@@ -1,6 +1,5 @@
 package bd.gov.banbeis.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -11,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * A Center.
  */
 @Document(collection = "center")
-public class Center extends AbstractAuditingEntity implements Serializable {
+public class Center implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -36,12 +35,10 @@ public class Center extends AbstractAuditingEntity implements Serializable {
 
     @DBRef
     @Field("district")
-    @JsonIgnoreProperties(value = { "division" }, allowSetters = true)
     private District district;
 
     @DBRef
     @Field("upazila")
-    @JsonIgnoreProperties(value = { "district" }, allowSetters = true)
     private Upazila upazila;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

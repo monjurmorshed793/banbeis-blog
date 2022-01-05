@@ -21,6 +21,7 @@ describe('District Service', () => {
 
     elemDefault = {
       id: 'AAAAAAA',
+      divisionId: 'AAAAAAA',
       name: 'AAAAAAA',
       bnName: 'AAAAAAA',
       lat: 'AAAAAAA',
@@ -61,6 +62,7 @@ describe('District Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 'BBBBBB',
+          divisionId: 'BBBBBB',
           name: 'BBBBBB',
           bnName: 'BBBBBB',
           lat: 'BBBBBB',
@@ -82,8 +84,9 @@ describe('District Service', () => {
     it('should partial update a District', () => {
       const patchObject = Object.assign(
         {
-          name: 'BBBBBB',
-          lat: 'BBBBBB',
+          divisionId: 'BBBBBB',
+          bnName: 'BBBBBB',
+          url: 'BBBBBB',
         },
         new District()
       );
@@ -103,6 +106,7 @@ describe('District Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 'BBBBBB',
+          divisionId: 'BBBBBB',
           name: 'BBBBBB',
           bnName: 'BBBBBB',
           lat: 'BBBBBB',
@@ -159,7 +163,7 @@ describe('District Service', () => {
       });
 
       it('should add only unique District to an array', () => {
-        const districtArray: IDistrict[] = [{ id: 'ABC' }, { id: 'CBA' }, { id: 'f9262017-3b68-4630-a5c1-ebbc079dabce' }];
+        const districtArray: IDistrict[] = [{ id: 'ABC' }, { id: 'CBA' }, { id: '92620173-b686-430a-9c1e-bbc079dabce5' }];
         const districtCollection: IDistrict[] = [{ id: 'ABC' }];
         expectedResult = service.addDistrictToCollectionIfMissing(districtCollection, ...districtArray);
         expect(expectedResult).toHaveLength(3);

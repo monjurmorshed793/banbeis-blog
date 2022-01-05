@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * A Post.
  */
 @Document(collection = "post")
-public class Post extends AbstractAuditingEntity implements Serializable {
+public class Post implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

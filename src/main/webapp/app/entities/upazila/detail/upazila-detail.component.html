@@ -14,6 +14,10 @@
         <dd>
           <span>{{ upazila.id }}</span>
         </dd>
+        <dt><span>District Id</span></dt>
+        <dd>
+          <span>{{ upazila.districtId }}</span>
+        </dd>
         <dt><span>Name</span></dt>
         <dd>
           <span>{{ upazila.name }}</span>
@@ -25,12 +29,6 @@
         <dt><span>Url</span></dt>
         <dd>
           <span>{{ upazila.url }}</span>
-        </dd>
-        <dt><span>District</span></dt>
-        <dd>
-          <div *ngIf="upazila.district">
-            <a [routerLink]="['/district', upazila.district?.id, 'view']">{{ upazila.district?.name }}</a>
-          </div>
         </dd>
       </dl>
 

@@ -15,7 +15,7 @@ entity Division{
 
 entity District{
     id String,
-    //divisionId String,
+    divisionId String,
     name String,
     bnName String,
     lat String,
@@ -25,7 +25,7 @@ entity District{
 
 entity Upazila{
     id String,
-    //districtId String,
+    districtId String,
     name String,
     bnName String,
     url String
@@ -112,8 +112,6 @@ enum CommentType{
 
 relationship ManyToOne{
     Navigation{parent(title)} to Navigation,
-    District{division(name)} to Division,
-    Upazila{district(name)} to District,
     Center{division(name)} to Division,
     Center{district(name)} to District,
     Center{upazila(name)} to Upazila,

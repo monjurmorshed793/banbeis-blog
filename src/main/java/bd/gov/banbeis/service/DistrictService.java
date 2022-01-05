@@ -46,6 +46,9 @@ public class DistrictService {
         return districtRepository
             .findById(district.getId())
             .map(existingDistrict -> {
+                if (district.getDivisionId() != null) {
+                    existingDistrict.setDivisionId(district.getDivisionId());
+                }
                 if (district.getName() != null) {
                     existingDistrict.setName(district.getName());
                 }

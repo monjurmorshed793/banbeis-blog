@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * A Division.
  */
 @Document(collection = "division")
-public class Division extends AbstractAuditingEntity implements Serializable {
+public class Division implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

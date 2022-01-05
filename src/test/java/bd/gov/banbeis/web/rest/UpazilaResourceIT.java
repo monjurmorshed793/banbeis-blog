@@ -26,6 +26,9 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 @WithMockUser
 class UpazilaResourceIT {
 
+    private static final String DEFAULT_DISTRICT_ID = "AAAAAAAAAA";
+    private static final String UPDATED_DISTRICT_ID = "BBBBBBBBBB";
+
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
@@ -53,7 +56,7 @@ class UpazilaResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Upazila createEntity() {
-        Upazila upazila = new Upazila().name(DEFAULT_NAME).bnName(DEFAULT_BN_NAME).url(DEFAULT_URL);
+        Upazila upazila = new Upazila().districtId(DEFAULT_DISTRICT_ID).name(DEFAULT_NAME).bnName(DEFAULT_BN_NAME).url(DEFAULT_URL);
         return upazila;
     }
 
@@ -64,7 +67,7 @@ class UpazilaResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Upazila createUpdatedEntity() {
-        Upazila upazila = new Upazila().name(UPDATED_NAME).bnName(UPDATED_BN_NAME).url(UPDATED_URL);
+        Upazila upazila = new Upazila().districtId(UPDATED_DISTRICT_ID).name(UPDATED_NAME).bnName(UPDATED_BN_NAME).url(UPDATED_URL);
         return upazila;
     }
 
@@ -91,6 +94,7 @@ class UpazilaResourceIT {
         List<Upazila> upazilaList = upazilaRepository.findAll().collectList().block();
         assertThat(upazilaList).hasSize(databaseSizeBeforeCreate + 1);
         Upazila testUpazila = upazilaList.get(upazilaList.size() - 1);
+        assertThat(testUpazila.getDistrictId()).isEqualTo(DEFAULT_DISTRICT_ID);
         assertThat(testUpazila.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testUpazila.getBnName()).isEqualTo(DEFAULT_BN_NAME);
         assertThat(testUpazila.getUrl()).isEqualTo(DEFAULT_URL);
@@ -137,6 +141,8 @@ class UpazilaResourceIT {
             .expectBody()
             .jsonPath("$.[*].id")
             .value(hasItem(upazila.getId()))
+            .jsonPath("$.[*].districtId")
+            .value(hasItem(DEFAULT_DISTRICT_ID))
             .jsonPath("$.[*].name")
             .value(hasItem(DEFAULT_NAME))
             .jsonPath("$.[*].bnName")
@@ -164,6 +170,8 @@ class UpazilaResourceIT {
             .expectBody()
             .jsonPath("$.id")
             .value(is(upazila.getId()))
+            .jsonPath("$.districtId")
+            .value(is(DEFAULT_DISTRICT_ID))
             .jsonPath("$.name")
             .value(is(DEFAULT_NAME))
             .jsonPath("$.bnName")
@@ -194,7 +202,7 @@ class UpazilaResourceIT {
 
         // Update the upazila
         Upazila updatedUpazila = upazilaRepository.findById(upazila.getId()).block();
-        updatedUpazila.name(UPDATED_NAME).bnName(UPDATED_BN_NAME).url(UPDATED_URL);
+        updatedUpazila.districtId(UPDATED_DISTRICT_ID).name(UPDATED_NAME).bnName(UPDATED_BN_NAME).url(UPDATED_URL);
 
         webTestClient
             .put()
@@ -209,6 +217,7 @@ class UpazilaResourceIT {
         List<Upazila> upazilaList = upazilaRepository.findAll().collectList().block();
         assertThat(upazilaList).hasSize(databaseSizeBeforeUpdate);
         Upazila testUpazila = upazilaList.get(upazilaList.size() - 1);
+        assertThat(testUpazila.getDistrictId()).isEqualTo(UPDATED_DISTRICT_ID);
         assertThat(testUpazila.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testUpazila.getBnName()).isEqualTo(UPDATED_BN_NAME);
         assertThat(testUpazila.getUrl()).isEqualTo(UPDATED_URL);
@@ -286,7 +295,7 @@ class UpazilaResourceIT {
         Upazila partialUpdatedUpazila = new Upazila();
         partialUpdatedUpazila.setId(upazila.getId());
 
-        partialUpdatedUpazila.name(UPDATED_NAME).url(UPDATED_URL);
+        partialUpdatedUpazila.districtId(UPDATED_DISTRICT_ID).bnName(UPDATED_BN_NAME);
 
         webTestClient
             .patch()
@@ -301,9 +310,10 @@ class UpazilaResourceIT {
         List<Upazila> upazilaList = upazilaRepository.findAll().collectList().block();
         assertThat(upazilaList).hasSize(databaseSizeBeforeUpdate);
         Upazila testUpazila = upazilaList.get(upazilaList.size() - 1);
-        assertThat(testUpazila.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testUpazila.getBnName()).isEqualTo(DEFAULT_BN_NAME);
-        assertThat(testUpazila.getUrl()).isEqualTo(UPDATED_URL);
+        assertThat(testUpazila.getDistrictId()).isEqualTo(UPDATED_DISTRICT_ID);
+        assertThat(testUpazila.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testUpazila.getBnName()).isEqualTo(UPDATED_BN_NAME);
+        assertThat(testUpazila.getUrl()).isEqualTo(DEFAULT_URL);
     }
 
     @Test
@@ -318,7 +328,7 @@ class UpazilaResourceIT {
         Upazila partialUpdatedUpazila = new Upazila();
         partialUpdatedUpazila.setId(upazila.getId());
 
-        partialUpdatedUpazila.name(UPDATED_NAME).bnName(UPDATED_BN_NAME).url(UPDATED_URL);
+        partialUpdatedUpazila.districtId(UPDATED_DISTRICT_ID).name(UPDATED_NAME).bnName(UPDATED_BN_NAME).url(UPDATED_URL);
 
         webTestClient
             .patch()
@@ -333,6 +343,7 @@ class UpazilaResourceIT {
         List<Upazila> upazilaList = upazilaRepository.findAll().collectList().block();
         assertThat(upazilaList).hasSize(databaseSizeBeforeUpdate);
         Upazila testUpazila = upazilaList.get(upazilaList.size() - 1);
+        assertThat(testUpazila.getDistrictId()).isEqualTo(UPDATED_DISTRICT_ID);
         assertThat(testUpazila.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testUpazila.getBnName()).isEqualTo(UPDATED_BN_NAME);
         assertThat(testUpazila.getUrl()).isEqualTo(UPDATED_URL);

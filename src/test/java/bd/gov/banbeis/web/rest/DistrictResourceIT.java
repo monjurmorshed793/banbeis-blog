@@ -26,6 +26,9 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 @WithMockUser
 class DistrictResourceIT {
 
+    private static final String DEFAULT_DIVISION_ID = "AAAAAAAAAA";
+    private static final String UPDATED_DIVISION_ID = "BBBBBBBBBB";
+
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
@@ -59,7 +62,13 @@ class DistrictResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static District createEntity() {
-        District district = new District().name(DEFAULT_NAME).bnName(DEFAULT_BN_NAME).lat(DEFAULT_LAT).lon(DEFAULT_LON).url(DEFAULT_URL);
+        District district = new District()
+            .divisionId(DEFAULT_DIVISION_ID)
+            .name(DEFAULT_NAME)
+            .bnName(DEFAULT_BN_NAME)
+            .lat(DEFAULT_LAT)
+            .lon(DEFAULT_LON)
+            .url(DEFAULT_URL);
         return district;
     }
 
@@ -70,7 +79,13 @@ class DistrictResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static District createUpdatedEntity() {
-        District district = new District().name(UPDATED_NAME).bnName(UPDATED_BN_NAME).lat(UPDATED_LAT).lon(UPDATED_LON).url(UPDATED_URL);
+        District district = new District()
+            .divisionId(UPDATED_DIVISION_ID)
+            .name(UPDATED_NAME)
+            .bnName(UPDATED_BN_NAME)
+            .lat(UPDATED_LAT)
+            .lon(UPDATED_LON)
+            .url(UPDATED_URL);
         return district;
     }
 
@@ -97,6 +112,7 @@ class DistrictResourceIT {
         List<District> districtList = districtRepository.findAll().collectList().block();
         assertThat(districtList).hasSize(databaseSizeBeforeCreate + 1);
         District testDistrict = districtList.get(districtList.size() - 1);
+        assertThat(testDistrict.getDivisionId()).isEqualTo(DEFAULT_DIVISION_ID);
         assertThat(testDistrict.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testDistrict.getBnName()).isEqualTo(DEFAULT_BN_NAME);
         assertThat(testDistrict.getLat()).isEqualTo(DEFAULT_LAT);
@@ -145,6 +161,8 @@ class DistrictResourceIT {
             .expectBody()
             .jsonPath("$.[*].id")
             .value(hasItem(district.getId()))
+            .jsonPath("$.[*].divisionId")
+            .value(hasItem(DEFAULT_DIVISION_ID))
             .jsonPath("$.[*].name")
             .value(hasItem(DEFAULT_NAME))
             .jsonPath("$.[*].bnName")
@@ -176,6 +194,8 @@ class DistrictResourceIT {
             .expectBody()
             .jsonPath("$.id")
             .value(is(district.getId()))
+            .jsonPath("$.divisionId")
+            .value(is(DEFAULT_DIVISION_ID))
             .jsonPath("$.name")
             .value(is(DEFAULT_NAME))
             .jsonPath("$.bnName")
@@ -210,7 +230,13 @@ class DistrictResourceIT {
 
         // Update the district
         District updatedDistrict = districtRepository.findById(district.getId()).block();
-        updatedDistrict.name(UPDATED_NAME).bnName(UPDATED_BN_NAME).lat(UPDATED_LAT).lon(UPDATED_LON).url(UPDATED_URL);
+        updatedDistrict
+            .divisionId(UPDATED_DIVISION_ID)
+            .name(UPDATED_NAME)
+            .bnName(UPDATED_BN_NAME)
+            .lat(UPDATED_LAT)
+            .lon(UPDATED_LON)
+            .url(UPDATED_URL);
 
         webTestClient
             .put()
@@ -225,6 +251,7 @@ class DistrictResourceIT {
         List<District> districtList = districtRepository.findAll().collectList().block();
         assertThat(districtList).hasSize(databaseSizeBeforeUpdate);
         District testDistrict = districtList.get(districtList.size() - 1);
+        assertThat(testDistrict.getDivisionId()).isEqualTo(UPDATED_DIVISION_ID);
         assertThat(testDistrict.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testDistrict.getBnName()).isEqualTo(UPDATED_BN_NAME);
         assertThat(testDistrict.getLat()).isEqualTo(UPDATED_LAT);
@@ -304,7 +331,7 @@ class DistrictResourceIT {
         District partialUpdatedDistrict = new District();
         partialUpdatedDistrict.setId(district.getId());
 
-        partialUpdatedDistrict.name(UPDATED_NAME).bnName(UPDATED_BN_NAME).lat(UPDATED_LAT);
+        partialUpdatedDistrict.divisionId(UPDATED_DIVISION_ID).name(UPDATED_NAME).bnName(UPDATED_BN_NAME).url(UPDATED_URL);
 
         webTestClient
             .patch()
@@ -319,11 +346,12 @@ class DistrictResourceIT {
         List<District> districtList = districtRepository.findAll().collectList().block();
         assertThat(districtList).hasSize(databaseSizeBeforeUpdate);
         District testDistrict = districtList.get(districtList.size() - 1);
+        assertThat(testDistrict.getDivisionId()).isEqualTo(UPDATED_DIVISION_ID);
         assertThat(testDistrict.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testDistrict.getBnName()).isEqualTo(UPDATED_BN_NAME);
-        assertThat(testDistrict.getLat()).isEqualTo(UPDATED_LAT);
+        assertThat(testDistrict.getLat()).isEqualTo(DEFAULT_LAT);
         assertThat(testDistrict.getLon()).isEqualTo(DEFAULT_LON);
-        assertThat(testDistrict.getUrl()).isEqualTo(DEFAULT_URL);
+        assertThat(testDistrict.getUrl()).isEqualTo(UPDATED_URL);
     }
 
     @Test
@@ -338,7 +366,13 @@ class DistrictResourceIT {
         District partialUpdatedDistrict = new District();
         partialUpdatedDistrict.setId(district.getId());
 
-        partialUpdatedDistrict.name(UPDATED_NAME).bnName(UPDATED_BN_NAME).lat(UPDATED_LAT).lon(UPDATED_LON).url(UPDATED_URL);
+        partialUpdatedDistrict
+            .divisionId(UPDATED_DIVISION_ID)
+            .name(UPDATED_NAME)
+            .bnName(UPDATED_BN_NAME)
+            .lat(UPDATED_LAT)
+            .lon(UPDATED_LON)
+            .url(UPDATED_URL);
 
         webTestClient
             .patch()
@@ -353,6 +387,7 @@ class DistrictResourceIT {
         List<District> districtList = districtRepository.findAll().collectList().block();
         assertThat(districtList).hasSize(databaseSizeBeforeUpdate);
         District testDistrict = districtList.get(districtList.size() - 1);
+        assertThat(testDistrict.getDivisionId()).isEqualTo(UPDATED_DIVISION_ID);
         assertThat(testDistrict.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testDistrict.getBnName()).isEqualTo(UPDATED_BN_NAME);
         assertThat(testDistrict.getLat()).isEqualTo(UPDATED_LAT);

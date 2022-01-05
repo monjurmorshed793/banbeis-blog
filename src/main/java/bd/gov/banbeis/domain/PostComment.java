@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * A PostComment.
  */
 @Document(collection = "post_comment")
-public class PostComment extends AbstractAuditingEntity implements Serializable {
+public class PostComment implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

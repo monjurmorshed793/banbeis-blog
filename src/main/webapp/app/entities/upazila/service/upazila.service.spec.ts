@@ -21,6 +21,7 @@ describe('Upazila Service', () => {
 
     elemDefault = {
       id: 'AAAAAAA',
+      districtId: 'AAAAAAA',
       name: 'AAAAAAA',
       bnName: 'AAAAAAA',
       url: 'AAAAAAA',
@@ -59,6 +60,7 @@ describe('Upazila Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 'BBBBBB',
+          districtId: 'BBBBBB',
           name: 'BBBBBB',
           bnName: 'BBBBBB',
           url: 'BBBBBB',
@@ -78,8 +80,8 @@ describe('Upazila Service', () => {
     it('should partial update a Upazila', () => {
       const patchObject = Object.assign(
         {
-          name: 'BBBBBB',
-          url: 'BBBBBB',
+          districtId: 'BBBBBB',
+          bnName: 'BBBBBB',
         },
         new Upazila()
       );
@@ -99,6 +101,7 @@ describe('Upazila Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 'BBBBBB',
+          districtId: 'BBBBBB',
           name: 'BBBBBB',
           bnName: 'BBBBBB',
           url: 'BBBBBB',
@@ -153,7 +156,7 @@ describe('Upazila Service', () => {
       });
 
       it('should add only unique Upazila to an array', () => {
-        const upazilaArray: IUpazila[] = [{ id: 'ABC' }, { id: 'CBA' }, { id: '10a8ad5c-26e8-440a-b89d-fcf63fd6e2d1' }];
+        const upazilaArray: IUpazila[] = [{ id: 'ABC' }, { id: 'CBA' }, { id: '0a8ad5c2-6e84-40a7-89df-cf63fd6e2d1f' }];
         const upazilaCollection: IUpazila[] = [{ id: 'ABC' }];
         expectedResult = service.addUpazilaToCollectionIfMissing(upazilaCollection, ...upazilaArray);
         expect(expectedResult).toHaveLength(3);

@@ -6,6 +6,10 @@
       "fieldType": "String"
     },
     {
+      "fieldName": "districtId",
+      "fieldType": "String"
+    },
+    {
       "fieldName": "name",
       "fieldType": "String"
     },
@@ -18,15 +22,7 @@
       "fieldType": "String"
     }
   ],
-  "relationships": [
-    {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "district",
-      "otherEntityRelationshipName": "upazila",
-      "relationshipName": "district",
-      "otherEntityField": "name"
-    }
-  ],
+  "relationships": [],
   "entityTableName": "upazila",
   "dto": "no",
   "pagination": "pagination",
