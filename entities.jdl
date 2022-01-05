@@ -6,8 +6,123 @@ entity Navigation{
     roles String required
 }
 
+entity Division{
+    id String,
+    name String,
+    bnName String,
+    url String
+}
+
+entity District{
+    id String,
+    //divisionId String,
+    name String,
+    bnName String,
+    lat String,
+    lon String,
+    url String
+}
+
+entity Upazila{
+    id String,
+    //districtId String,
+    name String,
+    bnName String,
+    url String
+}
+
+entity Center{
+    name String,
+    //division
+    //distict
+    //upazila
+    addressLine TextBlob,
+    image ImageBlob
+}
+
+entity Designation{
+    name String required,
+    sortName String required,
+    grade Integer
+}
+
+entity Employee{
+    fullName String required,
+    bnFullName String required,
+    //designation
+    mobile String required,
+    email String email required,
+    photo ImageBlob,
+}
+
+DutyType{
+    MAIN(Main),
+    ADDITIONAL(Additional)
+}
+
+entity CenterEmployee{
+    //center
+    //employee
+    joiningDate LocalDate,
+    releaseDate LocalDate,
+    //designation
+    message
+}
+
+entity CenterImages{
+    //center
+    image ImageBlob,
+    title String,
+    description TextBlob,
+    show Boolean
+}
+
+entity Post{
+    // center
+    // employee
+    postDate LocalDate,
+    title String,
+    body TextBlob,
+    publish boolean,
+    publishedOn Instant
+}
+
+entity PostPhoto{
+    //post
+    sequence Integer,
+    title String,
+    description TextBlob,
+    image ImageBlob,
+    //employee --> uploaded by
+    uploadedOn Instant
+}
+
+entity PostComment{
+    commentedBy String,
+    comment TextBlob,
+    commentType CommentType,
+    commentedOn Instant
+}
+
+enum CommentType{
+    INITIAL_COMMENT,
+    REPLY
+}
+
 relationship ManyToOne{
-    Navigation{parent(title)} to Navigation
+    Navigation{parent(title)} to Navigation,
+    District{division(name)} to Division,
+    Upazila{district(name)} to District,
+    Center{division(name)} to Division,
+    Center{district(name)} to District,
+    Center{upazila(name)} to Upazila,
+    Employee{designation(name)} to Designation,
+    CenterEmployee{designation(name)} to Designation,
+    CenterImages{center(name)} to Center,
+    Post{center(name)} to Center,
+    Post{employee(fullName)} to Employee,
+    PostPhoto{post(title)} to Post,
+    PostPhoto{uploadedBy(fullName)} to Employee
 }
 
 
