@@ -1,3 +1,5 @@
+import { Account } from '../../core/auth/account.model';
+
 jest.mock('app/core/auth/account.service');
 
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
@@ -45,7 +47,7 @@ describe('MainComponent', () => {
     titleService = TestBed.inject(Title);
     mockAccountService = TestBed.inject(AccountService);
     mockAccountService.identity = jest.fn(() => of(null));
-    mockAccountService.getAuthenticationState = jest.fn(() => of(null));
+    mockAccountService.getAuthenticationState = jest.fn(() => of());
   });
 
   describe('page title', () => {
@@ -113,6 +115,76 @@ describe('MainComponent', () => {
 
         // THEN
         expect(titleService.setTitle).not.toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('show side nav', () => {
+    const accountWithMaintainerAuthority: Account = {
+      activated: true,
+      authorities: ['ROLE_BLOG_MAINTAINER'],
+      email: 'random@gmail.com',
+      firstName: 'firstName',
+      lastName: 'lastName',
+      langKey: 'EN',
+      login: 'login',
+      imageUrl: 'imageUrl',
+    };
+
+    const accountWithAdminAuthority: Account = {
+      activated: true,
+      authorities: ['ROLE_ADMIN'],
+      email: 'random@gmail.com',
+      firstName: 'firstName',
+      lastName: 'lastName',
+      langKey: 'EN',
+      login: 'login',
+      imageUrl: 'imageUrl',
+    };
+
+    const accountWithoutMaintainerAuthority: Account = {
+      activated: true,
+      authorities: ['ROLE_BRANCH_MAINTAINER'],
+      email: 'random@gmail.com',
+      firstName: 'firstName',
+      lastName: 'lastName',
+      langKey: 'EN',
+      login: 'login',
+      imageUrl: 'imageUrl',
+    };
+
+    describe('after ngOnInt() is called', () => {
+      it('should set showSidenav to true if ROLE_BLOG_MAINTAINER role is found in the user account', () => {
+        // GIVEN
+        jest.spyOn(mockAccountService, 'getAuthenticationState').mockReturnValue(of(accountWithMaintainerAuthority));
+
+        // WHEN
+        comp.ngOnInit();
+
+        // THEN
+        expect(comp.showSideNav).toEqual(true);
+      });
+
+      it('should set showSidenav to true if ROLE_ADMIN role is found in the user account', () => {
+        // GIVEN
+        jest.spyOn(mockAccountService, 'getAuthenticationState').mockReturnValue(of(accountWithAdminAuthority));
+
+        // WHEN
+        comp.ngOnInit();
+
+        // THEN
+        expect(comp.showSideNav).toEqual(true);
+      });
+
+      it('should set showSidenav to false if ROLE_BLOG_MAINTAINER role is found in the user account', () => {
+        // GIVEN
+        jest.spyOn(mockAccountService, 'getAuthenticationState').mockReturnValue(of(accountWithoutMaintainerAuthority));
+
+        // WHEN
+        comp.ngOnInit();
+
+        // THEN
+        expect(comp.showSideNav).toEqual(false);
       });
     });
   });

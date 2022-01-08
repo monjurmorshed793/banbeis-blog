@@ -9,11 +9,30 @@ import { AccountService } from 'app/core/auth/account.service';
   templateUrl: './main.component.html',
 })
 export class MainComponent implements OnInit {
+  showSideNav = false;
   constructor(private accountService: AccountService, private titleService: Title, private router: Router) {}
 
   ngOnInit(): void {
     // try to log in automatically
     this.accountService.identity().subscribe();
+
+    this.accountService.getAuthenticationState().subscribe(res => {
+      // eslint-disable-next-line no-console
+      console.group('Logged user authentication state');
+      // eslint-disable-next-line no-console
+      console.log(res);
+      if (res?.authorities.includes('ROLE_BLOG_MAINTAINER') || res?.authorities.includes('ROLE_ADMIN')) {
+        // eslint-disable-next-line no-console
+        console.log('show sidenav --> true');
+        this.showSideNav = true;
+      } else {
+        // eslint-disable-next-line no-console
+        console.log('show sidenav --> false');
+        this.showSideNav = false;
+      }
+      // eslint-disable-next-line no-console
+      console.groupEnd();
+    });
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
