@@ -157,7 +157,9 @@ public class UserService {
             .then(Mono.just(user))
             .publishOn(Schedulers.boundedElastic())
             .map(newUser -> {
-                String encryptedPassword = passwordEncoder.encode(RandomUtil.generatePassword());
+                // Todo for test purpose, password is set to '12345', but after deployment and proper email configuration
+                //  '12345' should be replaced with <code>RandomUtil.generatePassword()</code>.
+                String encryptedPassword = passwordEncoder.encode("12345");
                 newUser.setPassword(encryptedPassword);
                 newUser.setResetKey(RandomUtil.generateResetKey());
                 newUser.setResetDate(Instant.now());

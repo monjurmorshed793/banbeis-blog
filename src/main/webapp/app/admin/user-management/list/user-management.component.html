@@ -21,7 +21,6 @@
     <table class="table table-striped" aria-describedby="user-management-page-heading">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="transition()">
-          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="login"><span>Login</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="email"><span>Email</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col"></th>
@@ -34,9 +33,6 @@
       </thead>
       <tbody *ngIf="users">
         <tr *ngFor="let user of users; trackBy: trackIdentity">
-          <td>
-            <a [routerLink]="['./', user.login, 'view']">{{ user.id }}</a>
-          </td>
           <td>{{ user.login }}</td>
           <td>{{ user.email }}</td>
           <td>
