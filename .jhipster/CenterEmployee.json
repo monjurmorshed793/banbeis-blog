@@ -1,0 +1,42 @@
+{
+  "name": "CenterEmployee",
+  "fields": [
+    {
+      "fieldName": "dutyType",
+      "fieldType": "DutyType",
+      "fieldValues": "MAIN (Main),ADDITIONAL (Additional)"
+    },
+    {
+      "fieldName": "joiningDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "releaseDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "message",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "designation",
+      "otherEntityRelationshipName": "centerEmployee",
+      "relationshipName": "designation",
+      "otherEntityField": "name"
+    }
+  ],
+  "entityTableName": "center_employee",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220105112312"
+}

@@ -40,6 +40,21 @@
     "clientPackageManager": "npm",
     "clientThemeVariant": "",
     "enableGradleEnterprise": false,
-    "languages": ["en", "fr"]
+    "languages": ["en", "fr"],
+    "entities": [
+      "Navigation",
+      "Division",
+      "District",
+      "Upazila",
+      "Center",
+      "Designation",
+      "Employee",
+      "CenterEmployee",
+      "CenterImages",
+      "Post",
+      "PostPhoto",
+      "PostComment"
+    ],
+    "lastLiquibaseTimestamp": 1641381796000
   }
 }

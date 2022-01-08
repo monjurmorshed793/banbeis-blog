@@ -1,0 +1,52 @@
+{
+  "name": "Post",
+  "fields": [
+    {
+      "fieldName": "postDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "title",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "body",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "publish",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "publishedOn",
+      "fieldType": "Instant"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "center",
+      "otherEntityRelationshipName": "post",
+      "relationshipName": "center",
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "employee",
+      "otherEntityRelationshipName": "post",
+      "relationshipName": "employee",
+      "otherEntityField": "fullName"
+    }
+  ],
+  "entityTableName": "post",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220105112314"
+}

@@ -1,0 +1,63 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="center">
+      <h2 data-cy="centerDetailsHeading"><span>Center</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ center.id }}</span>
+        </dd>
+        <dt><span>Name</span></dt>
+        <dd>
+          <span>{{ center.name }}</span>
+        </dd>
+        <dt><span>Address Line</span></dt>
+        <dd>
+          <span>{{ center.addressLine }}</span>
+        </dd>
+        <dt><span>Image</span></dt>
+        <dd>
+          <div *ngIf="center.image">
+            <a (click)="openFile(center.image, center.imageContentType)">
+              <img [src]="'data:' + center.imageContentType + ';base64,' + center.image" style="max-width: 100%" alt="center image" />
+            </a>
+            {{ center.imageContentType }}, {{ byteSize(center.image) }}
+          </div>
+        </dd>
+        <dt><span>Division</span></dt>
+        <dd>
+          <div *ngIf="center.division">
+            <a [routerLink]="['/division', center.division?.id, 'view']">{{ center.division?.name }}</a>
+          </div>
+        </dd>
+        <dt><span>District</span></dt>
+        <dd>
+          <div *ngIf="center.district">
+            <a [routerLink]="['/district', center.district?.id, 'view']">{{ center.district?.name }}</a>
+          </div>
+        </dd>
+        <dt><span>Upazila</span></dt>
+        <dd>
+          <div *ngIf="center.upazila">
+            <a [routerLink]="['/upazila', center.upazila?.id, 'view']">{{ center.upazila?.name }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/center', center.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

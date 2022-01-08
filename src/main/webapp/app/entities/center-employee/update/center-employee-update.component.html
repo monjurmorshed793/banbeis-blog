@@ -1,0 +1,102 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-center-employee-heading" data-cy="CenterEmployeeCreateUpdateHeading">Create or edit a Center Employee</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" for="field_id">ID</label>
+          <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_dutyType">Duty Type</label>
+          <select class="form-control" name="dutyType" formControlName="dutyType" id="field_dutyType" data-cy="dutyType">
+            <option [ngValue]="null"></option>
+            <option *ngFor="let dutyType of dutyTypeValues" [value]="dutyType">dutyType</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_joiningDate">Joining Date</label>
+          <div class="input-group">
+            <input
+              id="field_joiningDate"
+              data-cy="joiningDate"
+              type="text"
+              class="form-control"
+              name="joiningDate"
+              ngbDatepicker
+              #joiningDateDp="ngbDatepicker"
+              formControlName="joiningDate"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="joiningDateDp.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_releaseDate">Release Date</label>
+          <div class="input-group">
+            <input
+              id="field_releaseDate"
+              data-cy="releaseDate"
+              type="text"
+              class="form-control"
+              name="releaseDate"
+              ngbDatepicker
+              #releaseDateDp="ngbDatepicker"
+              formControlName="releaseDate"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="releaseDateDp.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_message">Message</label>
+          <textarea class="form-control" name="message" id="field_message" data-cy="message" formControlName="message"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_designation">Designation</label>
+          <select class="form-control" id="field_designation" data-cy="designation" name="designation" formControlName="designation">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                designationOption.id === editForm.get('designation')!.value?.id ? editForm.get('designation')!.value : designationOption
+              "
+              *ngFor="let designationOption of designationsSharedCollection; trackBy: trackDesignationById"
+            >
+              {{ designationOption.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
