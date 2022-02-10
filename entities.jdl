@@ -52,6 +52,7 @@ entity Employee{
     //designation
     mobile String required,
     email String required,
+    photoUrl String,
     photo ImageBlob,
 }
 
@@ -73,7 +74,8 @@ entity CenterEmployee{
 entity CenterImages{
     //center
     image ImageBlob,
-    title String,
+    imageUrl String required,
+    title String required,
     description TextBlob,
     show Boolean
 }
@@ -91,9 +93,10 @@ entity Post{
 entity PostPhoto{
     //post
     sequence Integer,
-    title String,
+    title String required,
     description TextBlob,
     image ImageBlob,
+    imageUrl String required,
     //employee --> uploaded by
     uploadedOn Instant
 }
