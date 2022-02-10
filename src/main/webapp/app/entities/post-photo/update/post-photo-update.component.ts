@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
@@ -31,10 +31,11 @@ export class PostPhotoUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     sequence: [],
-    title: [],
+    title: [null, [Validators.required]],
     description: [],
     image: [],
     imageContentType: [],
+    imageUrl: [null, [Validators.required]],
     uploadedOn: [],
     post: [],
     uploadedBy: [],
@@ -138,6 +139,7 @@ export class PostPhotoUpdateComponent implements OnInit {
       description: postPhoto.description,
       image: postPhoto.image,
       imageContentType: postPhoto.imageContentType,
+      imageUrl: postPhoto.imageUrl,
       uploadedOn: postPhoto.uploadedOn ? postPhoto.uploadedOn.format(DATE_TIME_FORMAT) : null,
       post: postPhoto.post,
       uploadedBy: postPhoto.uploadedBy,
@@ -177,6 +179,7 @@ export class PostPhotoUpdateComponent implements OnInit {
       description: this.editForm.get(['description'])!.value,
       imageContentType: this.editForm.get(['imageContentType'])!.value,
       image: this.editForm.get(['image'])!.value,
+      imageUrl: this.editForm.get(['imageUrl'])!.value,
       uploadedOn: this.editForm.get(['uploadedOn'])!.value ? dayjs(this.editForm.get(['uploadedOn'])!.value, DATE_TIME_FORMAT) : undefined,
       post: this.editForm.get(['post'])!.value,
       uploadedBy: this.editForm.get(['uploadedBy'])!.value,

@@ -43,8 +43,19 @@
         </div>
 
         <div class="form-group">
+          <label class="form-control-label" for="field_imageUrl">Image Url</label>
+          <input type="text" class="form-control" name="imageUrl" id="field_imageUrl" data-cy="imageUrl" formControlName="imageUrl" />
+          <div *ngIf="editForm.get('imageUrl')!.invalid && (editForm.get('imageUrl')!.dirty || editForm.get('imageUrl')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('imageUrl')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="form-group">
           <label class="form-control-label" for="field_title">Title</label>
           <input type="text" class="form-control" name="title" id="field_title" data-cy="title" formControlName="title" />
+          <div *ngIf="editForm.get('title')!.invalid && (editForm.get('title')!.dirty || editForm.get('title')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('title')?.errors?.required"> This field is required. </small>
+          </div>
         </div>
 
         <div class="form-group">

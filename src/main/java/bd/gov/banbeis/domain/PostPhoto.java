@@ -3,6 +3,7 @@ package bd.gov.banbeis.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.Instant;
+import javax.validation.constraints.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -22,6 +23,7 @@ public class PostPhoto implements Serializable {
     @Field("sequence")
     private Integer sequence;
 
+    @NotNull(message = "must not be null")
     @Field("title")
     private String title;
 
@@ -33,6 +35,10 @@ public class PostPhoto implements Serializable {
 
     @Field("image_content_type")
     private String imageContentType;
+
+    @NotNull(message = "must not be null")
+    @Field("image_url")
+    private String imageUrl;
 
     @Field("uploaded_on")
     private Instant uploadedOn;
@@ -127,6 +133,19 @@ public class PostPhoto implements Serializable {
         this.imageContentType = imageContentType;
     }
 
+    public String getImageUrl() {
+        return this.imageUrl;
+    }
+
+    public PostPhoto imageUrl(String imageUrl) {
+        this.setImageUrl(imageUrl);
+        return this;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public Instant getUploadedOn() {
         return this.uploadedOn;
     }
@@ -195,6 +214,7 @@ public class PostPhoto implements Serializable {
             ", description='" + getDescription() + "'" +
             ", image='" + getImage() + "'" +
             ", imageContentType='" + getImageContentType() + "'" +
+            ", imageUrl='" + getImageUrl() + "'" +
             ", uploadedOn='" + getUploadedOn() + "'" +
             "}";
     }

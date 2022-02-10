@@ -39,6 +39,10 @@
             {{ postPhoto.imageContentType }}, {{ byteSize(postPhoto.image) }}
           </div>
         </dd>
+        <dt><span>Image Url</span></dt>
+        <dd>
+          <span>{{ postPhoto.imageUrl }}</span>
+        </dd>
         <dt><span>Uploaded On</span></dt>
         <dd>
           <span>{{ postPhoto.uploadedOn | formatMediumDatetime }}</span>

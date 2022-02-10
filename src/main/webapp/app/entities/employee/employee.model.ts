@@ -6,6 +6,7 @@ export interface IEmployee {
   bnFullName?: string;
   mobile?: string;
   email?: string;
+  photoUrl?: string | null;
   photoContentType?: string | null;
   photo?: string | null;
   designation?: IDesignation | null;
@@ -18,6 +19,7 @@ export class Employee implements IEmployee {
     public bnFullName?: string,
     public mobile?: string,
     public email?: string,
+    public photoUrl?: string | null,
     public photoContentType?: string | null,
     public photo?: string | null,
     public designation?: IDesignation | null

@@ -34,6 +34,7 @@
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
           <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="image"><span>Image</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="imageUrl"><span>Image Url</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="title"><span>Title</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="description"><span>Description</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="show"><span>Show</span> <fa-icon icon="sort"></fa-icon></th>
@@ -56,6 +57,7 @@
             </a>
             <span *ngIf="centerImages.image">{{ centerImages.imageContentType }}, {{ byteSize(centerImages.image) }}</span>
           </td>
+          <td>{{ centerImages.imageUrl }}</td>
           <td>{{ centerImages.title }}</td>
           <td>{{ centerImages.description }}</td>
           <td>{{ centerImages.show }}</td>

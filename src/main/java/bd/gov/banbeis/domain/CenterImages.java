@@ -2,6 +2,7 @@ package bd.gov.banbeis.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import javax.validation.constraints.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -24,6 +25,11 @@ public class CenterImages implements Serializable {
     @Field("image_content_type")
     private String imageContentType;
 
+    @NotNull(message = "must not be null")
+    @Field("image_url")
+    private String imageUrl;
+
+    @NotNull(message = "must not be null")
     @Field("title")
     private String title;
 
@@ -77,6 +83,19 @@ public class CenterImages implements Serializable {
 
     public void setImageContentType(String imageContentType) {
         this.imageContentType = imageContentType;
+    }
+
+    public String getImageUrl() {
+        return this.imageUrl;
+    }
+
+    public CenterImages imageUrl(String imageUrl) {
+        this.setImageUrl(imageUrl);
+        return this;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getTitle() {
@@ -157,6 +176,7 @@ public class CenterImages implements Serializable {
             "id=" + getId() +
             ", image='" + getImage() + "'" +
             ", imageContentType='" + getImageContentType() + "'" +
+            ", imageUrl='" + getImageUrl() + "'" +
             ", title='" + getTitle() + "'" +
             ", description='" + getDescription() + "'" +
             ", show='" + getShow() + "'" +

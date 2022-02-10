@@ -39,6 +39,9 @@ class EmployeeResourceIT {
     private static final String DEFAULT_EMAIL = "AAAAAAAAAA";
     private static final String UPDATED_EMAIL = "BBBBBBBBBB";
 
+    private static final String DEFAULT_PHOTO_URL = "AAAAAAAAAA";
+    private static final String UPDATED_PHOTO_URL = "BBBBBBBBBB";
+
     private static final byte[] DEFAULT_PHOTO = TestUtil.createByteArray(1, "0");
     private static final byte[] UPDATED_PHOTO = TestUtil.createByteArray(1, "1");
     private static final String DEFAULT_PHOTO_CONTENT_TYPE = "image/jpg";
@@ -67,6 +70,7 @@ class EmployeeResourceIT {
             .bnFullName(DEFAULT_BN_FULL_NAME)
             .mobile(DEFAULT_MOBILE)
             .email(DEFAULT_EMAIL)
+            .photoUrl(DEFAULT_PHOTO_URL)
             .photo(DEFAULT_PHOTO)
             .photoContentType(DEFAULT_PHOTO_CONTENT_TYPE);
         return employee;
@@ -84,6 +88,7 @@ class EmployeeResourceIT {
             .bnFullName(UPDATED_BN_FULL_NAME)
             .mobile(UPDATED_MOBILE)
             .email(UPDATED_EMAIL)
+            .photoUrl(UPDATED_PHOTO_URL)
             .photo(UPDATED_PHOTO)
             .photoContentType(UPDATED_PHOTO_CONTENT_TYPE);
         return employee;
@@ -116,6 +121,7 @@ class EmployeeResourceIT {
         assertThat(testEmployee.getBnFullName()).isEqualTo(DEFAULT_BN_FULL_NAME);
         assertThat(testEmployee.getMobile()).isEqualTo(DEFAULT_MOBILE);
         assertThat(testEmployee.getEmail()).isEqualTo(DEFAULT_EMAIL);
+        assertThat(testEmployee.getPhotoUrl()).isEqualTo(DEFAULT_PHOTO_URL);
         assertThat(testEmployee.getPhoto()).isEqualTo(DEFAULT_PHOTO);
         assertThat(testEmployee.getPhotoContentType()).isEqualTo(DEFAULT_PHOTO_CONTENT_TYPE);
     }
@@ -252,6 +258,8 @@ class EmployeeResourceIT {
             .value(hasItem(DEFAULT_MOBILE))
             .jsonPath("$.[*].email")
             .value(hasItem(DEFAULT_EMAIL))
+            .jsonPath("$.[*].photoUrl")
+            .value(hasItem(DEFAULT_PHOTO_URL))
             .jsonPath("$.[*].photoContentType")
             .value(hasItem(DEFAULT_PHOTO_CONTENT_TYPE))
             .jsonPath("$.[*].photo")
@@ -284,6 +292,8 @@ class EmployeeResourceIT {
             .value(is(DEFAULT_MOBILE))
             .jsonPath("$.email")
             .value(is(DEFAULT_EMAIL))
+            .jsonPath("$.photoUrl")
+            .value(is(DEFAULT_PHOTO_URL))
             .jsonPath("$.photoContentType")
             .value(is(DEFAULT_PHOTO_CONTENT_TYPE))
             .jsonPath("$.photo")
@@ -316,6 +326,7 @@ class EmployeeResourceIT {
             .bnFullName(UPDATED_BN_FULL_NAME)
             .mobile(UPDATED_MOBILE)
             .email(UPDATED_EMAIL)
+            .photoUrl(UPDATED_PHOTO_URL)
             .photo(UPDATED_PHOTO)
             .photoContentType(UPDATED_PHOTO_CONTENT_TYPE);
 
@@ -336,6 +347,7 @@ class EmployeeResourceIT {
         assertThat(testEmployee.getBnFullName()).isEqualTo(UPDATED_BN_FULL_NAME);
         assertThat(testEmployee.getMobile()).isEqualTo(UPDATED_MOBILE);
         assertThat(testEmployee.getEmail()).isEqualTo(UPDATED_EMAIL);
+        assertThat(testEmployee.getPhotoUrl()).isEqualTo(UPDATED_PHOTO_URL);
         assertThat(testEmployee.getPhoto()).isEqualTo(UPDATED_PHOTO);
         assertThat(testEmployee.getPhotoContentType()).isEqualTo(UPDATED_PHOTO_CONTENT_TYPE);
     }
@@ -430,6 +442,7 @@ class EmployeeResourceIT {
         assertThat(testEmployee.getBnFullName()).isEqualTo(UPDATED_BN_FULL_NAME);
         assertThat(testEmployee.getMobile()).isEqualTo(UPDATED_MOBILE);
         assertThat(testEmployee.getEmail()).isEqualTo(DEFAULT_EMAIL);
+        assertThat(testEmployee.getPhotoUrl()).isEqualTo(DEFAULT_PHOTO_URL);
         assertThat(testEmployee.getPhoto()).isEqualTo(DEFAULT_PHOTO);
         assertThat(testEmployee.getPhotoContentType()).isEqualTo(DEFAULT_PHOTO_CONTENT_TYPE);
     }
@@ -450,6 +463,7 @@ class EmployeeResourceIT {
             .bnFullName(UPDATED_BN_FULL_NAME)
             .mobile(UPDATED_MOBILE)
             .email(UPDATED_EMAIL)
+            .photoUrl(UPDATED_PHOTO_URL)
             .photo(UPDATED_PHOTO)
             .photoContentType(UPDATED_PHOTO_CONTENT_TYPE);
 
@@ -470,6 +484,7 @@ class EmployeeResourceIT {
         assertThat(testEmployee.getBnFullName()).isEqualTo(UPDATED_BN_FULL_NAME);
         assertThat(testEmployee.getMobile()).isEqualTo(UPDATED_MOBILE);
         assertThat(testEmployee.getEmail()).isEqualTo(UPDATED_EMAIL);
+        assertThat(testEmployee.getPhotoUrl()).isEqualTo(UPDATED_PHOTO_URL);
         assertThat(testEmployee.getPhoto()).isEqualTo(UPDATED_PHOTO);
         assertThat(testEmployee.getPhotoContentType()).isEqualTo(UPDATED_PHOTO_CONTENT_TYPE);
     }

@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -61,7 +63,7 @@ public class PostPhotoResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/post-photos")
-    public Mono<ResponseEntity<PostPhoto>> createPostPhoto(@RequestBody PostPhoto postPhoto) throws URISyntaxException {
+    public Mono<ResponseEntity<PostPhoto>> createPostPhoto(@Valid @RequestBody PostPhoto postPhoto) throws URISyntaxException {
         log.debug("REST request to save PostPhoto : {}", postPhoto);
         if (postPhoto.getId() != null) {
             throw new BadRequestAlertException("A new postPhoto cannot already have an ID", ENTITY_NAME, "idexists");
@@ -93,7 +95,7 @@ public class PostPhotoResource {
     @PutMapping("/post-photos/{id}")
     public Mono<ResponseEntity<PostPhoto>> updatePostPhoto(
         @PathVariable(value = "id", required = false) final String id,
-        @RequestBody PostPhoto postPhoto
+        @Valid @RequestBody PostPhoto postPhoto
     ) throws URISyntaxException {
         log.debug("REST request to update PostPhoto : {}, {}", id, postPhoto);
         if (postPhoto.getId() == null) {
@@ -136,7 +138,7 @@ public class PostPhotoResource {
     @PatchMapping(value = "/post-photos/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public Mono<ResponseEntity<PostPhoto>> partialUpdatePostPhoto(
         @PathVariable(value = "id", required = false) final String id,
-        @RequestBody PostPhoto postPhoto
+        @NotNull @RequestBody PostPhoto postPhoto
     ) throws URISyntaxException {
         log.debug("REST request to partial update PostPhoto partially : {}, {}", id, postPhoto);
         if (postPhoto.getId() == null) {

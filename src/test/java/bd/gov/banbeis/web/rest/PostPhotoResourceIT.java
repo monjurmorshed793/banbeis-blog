@@ -43,6 +43,9 @@ class PostPhotoResourceIT {
     private static final String DEFAULT_IMAGE_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_IMAGE_CONTENT_TYPE = "image/png";
 
+    private static final String DEFAULT_IMAGE_URL = "AAAAAAAAAA";
+    private static final String UPDATED_IMAGE_URL = "BBBBBBBBBB";
+
     private static final Instant DEFAULT_UPLOADED_ON = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_UPLOADED_ON = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
@@ -70,6 +73,7 @@ class PostPhotoResourceIT {
             .description(DEFAULT_DESCRIPTION)
             .image(DEFAULT_IMAGE)
             .imageContentType(DEFAULT_IMAGE_CONTENT_TYPE)
+            .imageUrl(DEFAULT_IMAGE_URL)
             .uploadedOn(DEFAULT_UPLOADED_ON);
         return postPhoto;
     }
@@ -87,6 +91,7 @@ class PostPhotoResourceIT {
             .description(UPDATED_DESCRIPTION)
             .image(UPDATED_IMAGE)
             .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
+            .imageUrl(UPDATED_IMAGE_URL)
             .uploadedOn(UPDATED_UPLOADED_ON);
         return postPhoto;
     }
@@ -119,6 +124,7 @@ class PostPhotoResourceIT {
         assertThat(testPostPhoto.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testPostPhoto.getImage()).isEqualTo(DEFAULT_IMAGE);
         assertThat(testPostPhoto.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
+        assertThat(testPostPhoto.getImageUrl()).isEqualTo(DEFAULT_IMAGE_URL);
         assertThat(testPostPhoto.getUploadedOn()).isEqualTo(DEFAULT_UPLOADED_ON);
     }
 
@@ -142,6 +148,48 @@ class PostPhotoResourceIT {
         // Validate the PostPhoto in the database
         List<PostPhoto> postPhotoList = postPhotoRepository.findAll().collectList().block();
         assertThat(postPhotoList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    void checkTitleIsRequired() throws Exception {
+        int databaseSizeBeforeTest = postPhotoRepository.findAll().collectList().block().size();
+        // set the field null
+        postPhoto.setTitle(null);
+
+        // Create the PostPhoto, which fails.
+
+        webTestClient
+            .post()
+            .uri(ENTITY_API_URL)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(TestUtil.convertObjectToJsonBytes(postPhoto))
+            .exchange()
+            .expectStatus()
+            .isBadRequest();
+
+        List<PostPhoto> postPhotoList = postPhotoRepository.findAll().collectList().block();
+        assertThat(postPhotoList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    void checkImageUrlIsRequired() throws Exception {
+        int databaseSizeBeforeTest = postPhotoRepository.findAll().collectList().block().size();
+        // set the field null
+        postPhoto.setImageUrl(null);
+
+        // Create the PostPhoto, which fails.
+
+        webTestClient
+            .post()
+            .uri(ENTITY_API_URL)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(TestUtil.convertObjectToJsonBytes(postPhoto))
+            .exchange()
+            .expectStatus()
+            .isBadRequest();
+
+        List<PostPhoto> postPhotoList = postPhotoRepository.findAll().collectList().block();
+        assertThat(postPhotoList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -172,6 +220,8 @@ class PostPhotoResourceIT {
             .value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE))
             .jsonPath("$.[*].image")
             .value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE)))
+            .jsonPath("$.[*].imageUrl")
+            .value(hasItem(DEFAULT_IMAGE_URL))
             .jsonPath("$.[*].uploadedOn")
             .value(hasItem(DEFAULT_UPLOADED_ON.toString()));
     }
@@ -204,6 +254,8 @@ class PostPhotoResourceIT {
             .value(is(DEFAULT_IMAGE_CONTENT_TYPE))
             .jsonPath("$.image")
             .value(is(Base64Utils.encodeToString(DEFAULT_IMAGE)))
+            .jsonPath("$.imageUrl")
+            .value(is(DEFAULT_IMAGE_URL))
             .jsonPath("$.uploadedOn")
             .value(is(DEFAULT_UPLOADED_ON.toString()));
     }
@@ -235,6 +287,7 @@ class PostPhotoResourceIT {
             .description(UPDATED_DESCRIPTION)
             .image(UPDATED_IMAGE)
             .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
+            .imageUrl(UPDATED_IMAGE_URL)
             .uploadedOn(UPDATED_UPLOADED_ON);
 
         webTestClient
@@ -255,6 +308,7 @@ class PostPhotoResourceIT {
         assertThat(testPostPhoto.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testPostPhoto.getImage()).isEqualTo(UPDATED_IMAGE);
         assertThat(testPostPhoto.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
+        assertThat(testPostPhoto.getImageUrl()).isEqualTo(UPDATED_IMAGE_URL);
         assertThat(testPostPhoto.getUploadedOn()).isEqualTo(UPDATED_UPLOADED_ON);
     }
 
@@ -333,7 +387,8 @@ class PostPhotoResourceIT {
             .title(UPDATED_TITLE)
             .description(UPDATED_DESCRIPTION)
             .image(UPDATED_IMAGE)
-            .imageContentType(UPDATED_IMAGE_CONTENT_TYPE);
+            .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
+            .uploadedOn(UPDATED_UPLOADED_ON);
 
         webTestClient
             .patch()
@@ -353,7 +408,8 @@ class PostPhotoResourceIT {
         assertThat(testPostPhoto.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testPostPhoto.getImage()).isEqualTo(UPDATED_IMAGE);
         assertThat(testPostPhoto.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
-        assertThat(testPostPhoto.getUploadedOn()).isEqualTo(DEFAULT_UPLOADED_ON);
+        assertThat(testPostPhoto.getImageUrl()).isEqualTo(DEFAULT_IMAGE_URL);
+        assertThat(testPostPhoto.getUploadedOn()).isEqualTo(UPDATED_UPLOADED_ON);
     }
 
     @Test
@@ -373,6 +429,7 @@ class PostPhotoResourceIT {
             .description(UPDATED_DESCRIPTION)
             .image(UPDATED_IMAGE)
             .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
+            .imageUrl(UPDATED_IMAGE_URL)
             .uploadedOn(UPDATED_UPLOADED_ON);
 
         webTestClient
@@ -393,6 +450,7 @@ class PostPhotoResourceIT {
         assertThat(testPostPhoto.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testPostPhoto.getImage()).isEqualTo(UPDATED_IMAGE);
         assertThat(testPostPhoto.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
+        assertThat(testPostPhoto.getImageUrl()).isEqualTo(UPDATED_IMAGE_URL);
         assertThat(testPostPhoto.getUploadedOn()).isEqualTo(UPDATED_UPLOADED_ON);
     }
 

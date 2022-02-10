@@ -23,6 +23,7 @@ describe('CenterImages Service', () => {
       id: 'AAAAAAA',
       imageContentType: 'image/png',
       image: 'AAAAAAA',
+      imageUrl: 'AAAAAAA',
       title: 'AAAAAAA',
       description: 'AAAAAAA',
       show: false,
@@ -62,6 +63,7 @@ describe('CenterImages Service', () => {
         {
           id: 'BBBBBB',
           image: 'BBBBBB',
+          imageUrl: 'BBBBBB',
           title: 'BBBBBB',
           description: 'BBBBBB',
           show: true,
@@ -81,8 +83,8 @@ describe('CenterImages Service', () => {
     it('should partial update a CenterImages', () => {
       const patchObject = Object.assign(
         {
+          title: 'BBBBBB',
           description: 'BBBBBB',
-          show: true,
         },
         new CenterImages()
       );
@@ -103,6 +105,7 @@ describe('CenterImages Service', () => {
         {
           id: 'BBBBBB',
           image: 'BBBBBB',
+          imageUrl: 'BBBBBB',
           title: 'BBBBBB',
           description: 'BBBBBB',
           show: true,
@@ -157,7 +160,7 @@ describe('CenterImages Service', () => {
       });
 
       it('should add only unique CenterImages to an array', () => {
-        const centerImagesArray: ICenterImages[] = [{ id: 'ABC' }, { id: 'CBA' }, { id: '0c137a36-0132-44bb-acf4-618a81092542' }];
+        const centerImagesArray: ICenterImages[] = [{ id: 'ABC' }, { id: 'CBA' }, { id: 'c137a360-1324-4bb2-8f46-18a810925423' }];
         const centerImagesCollection: ICenterImages[] = [{ id: 'ABC' }];
         expectedResult = service.addCenterImagesToCollectionIfMissing(centerImagesCollection, ...centerImagesArray);
         expect(expectedResult).toHaveLength(3);

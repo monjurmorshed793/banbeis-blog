@@ -52,6 +52,9 @@ public class CenterImagesService {
                 if (centerImages.getImageContentType() != null) {
                     existingCenterImages.setImageContentType(centerImages.getImageContentType());
                 }
+                if (centerImages.getImageUrl() != null) {
+                    existingCenterImages.setImageUrl(centerImages.getImageUrl());
+                }
                 if (centerImages.getTitle() != null) {
                     existingCenterImages.setTitle(centerImages.getTitle());
                 }

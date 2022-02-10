@@ -37,6 +37,7 @@
           <th scope="col" jhiSortBy="bnFullName"><span>Bn Full Name</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="mobile"><span>Mobile</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="email"><span>Email</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="photoUrl"><span>Photo Url</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="photo"><span>Photo</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="designation.name"><span>Designation</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col"></th>
@@ -51,6 +52,7 @@
           <td>{{ employee.bnFullName }}</td>
           <td>{{ employee.mobile }}</td>
           <td>{{ employee.email }}</td>
+          <td>{{ employee.photoUrl }}</td>
           <td>
             <a *ngIf="employee.photo" (click)="openFile(employee.photo, employee.photoContentType)">
               <img

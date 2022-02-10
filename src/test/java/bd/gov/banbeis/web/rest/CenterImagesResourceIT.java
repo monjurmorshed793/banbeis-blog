@@ -32,6 +32,9 @@ class CenterImagesResourceIT {
     private static final String DEFAULT_IMAGE_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_IMAGE_CONTENT_TYPE = "image/png";
 
+    private static final String DEFAULT_IMAGE_URL = "AAAAAAAAAA";
+    private static final String UPDATED_IMAGE_URL = "BBBBBBBBBB";
+
     private static final String DEFAULT_TITLE = "AAAAAAAAAA";
     private static final String UPDATED_TITLE = "BBBBBBBBBB";
 
@@ -62,6 +65,7 @@ class CenterImagesResourceIT {
         CenterImages centerImages = new CenterImages()
             .image(DEFAULT_IMAGE)
             .imageContentType(DEFAULT_IMAGE_CONTENT_TYPE)
+            .imageUrl(DEFAULT_IMAGE_URL)
             .title(DEFAULT_TITLE)
             .description(DEFAULT_DESCRIPTION)
             .show(DEFAULT_SHOW);
@@ -78,6 +82,7 @@ class CenterImagesResourceIT {
         CenterImages centerImages = new CenterImages()
             .image(UPDATED_IMAGE)
             .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
+            .imageUrl(UPDATED_IMAGE_URL)
             .title(UPDATED_TITLE)
             .description(UPDATED_DESCRIPTION)
             .show(UPDATED_SHOW);
@@ -109,6 +114,7 @@ class CenterImagesResourceIT {
         CenterImages testCenterImages = centerImagesList.get(centerImagesList.size() - 1);
         assertThat(testCenterImages.getImage()).isEqualTo(DEFAULT_IMAGE);
         assertThat(testCenterImages.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
+        assertThat(testCenterImages.getImageUrl()).isEqualTo(DEFAULT_IMAGE_URL);
         assertThat(testCenterImages.getTitle()).isEqualTo(DEFAULT_TITLE);
         assertThat(testCenterImages.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testCenterImages.getShow()).isEqualTo(DEFAULT_SHOW);
@@ -137,6 +143,48 @@ class CenterImagesResourceIT {
     }
 
     @Test
+    void checkImageUrlIsRequired() throws Exception {
+        int databaseSizeBeforeTest = centerImagesRepository.findAll().collectList().block().size();
+        // set the field null
+        centerImages.setImageUrl(null);
+
+        // Create the CenterImages, which fails.
+
+        webTestClient
+            .post()
+            .uri(ENTITY_API_URL)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(TestUtil.convertObjectToJsonBytes(centerImages))
+            .exchange()
+            .expectStatus()
+            .isBadRequest();
+
+        List<CenterImages> centerImagesList = centerImagesRepository.findAll().collectList().block();
+        assertThat(centerImagesList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    void checkTitleIsRequired() throws Exception {
+        int databaseSizeBeforeTest = centerImagesRepository.findAll().collectList().block().size();
+        // set the field null
+        centerImages.setTitle(null);
+
+        // Create the CenterImages, which fails.
+
+        webTestClient
+            .post()
+            .uri(ENTITY_API_URL)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(TestUtil.convertObjectToJsonBytes(centerImages))
+            .exchange()
+            .expectStatus()
+            .isBadRequest();
+
+        List<CenterImages> centerImagesList = centerImagesRepository.findAll().collectList().block();
+        assertThat(centerImagesList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
     void getAllCenterImages() {
         // Initialize the database
         centerImagesRepository.save(centerImages).block();
@@ -158,6 +206,8 @@ class CenterImagesResourceIT {
             .value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE))
             .jsonPath("$.[*].image")
             .value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE)))
+            .jsonPath("$.[*].imageUrl")
+            .value(hasItem(DEFAULT_IMAGE_URL))
             .jsonPath("$.[*].title")
             .value(hasItem(DEFAULT_TITLE))
             .jsonPath("$.[*].description")
@@ -188,6 +238,8 @@ class CenterImagesResourceIT {
             .value(is(DEFAULT_IMAGE_CONTENT_TYPE))
             .jsonPath("$.image")
             .value(is(Base64Utils.encodeToString(DEFAULT_IMAGE)))
+            .jsonPath("$.imageUrl")
+            .value(is(DEFAULT_IMAGE_URL))
             .jsonPath("$.title")
             .value(is(DEFAULT_TITLE))
             .jsonPath("$.description")
@@ -220,6 +272,7 @@ class CenterImagesResourceIT {
         updatedCenterImages
             .image(UPDATED_IMAGE)
             .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
+            .imageUrl(UPDATED_IMAGE_URL)
             .title(UPDATED_TITLE)
             .description(UPDATED_DESCRIPTION)
             .show(UPDATED_SHOW);
@@ -239,6 +292,7 @@ class CenterImagesResourceIT {
         CenterImages testCenterImages = centerImagesList.get(centerImagesList.size() - 1);
         assertThat(testCenterImages.getImage()).isEqualTo(UPDATED_IMAGE);
         assertThat(testCenterImages.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
+        assertThat(testCenterImages.getImageUrl()).isEqualTo(UPDATED_IMAGE_URL);
         assertThat(testCenterImages.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testCenterImages.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testCenterImages.getShow()).isEqualTo(UPDATED_SHOW);
@@ -315,7 +369,7 @@ class CenterImagesResourceIT {
         CenterImages partialUpdatedCenterImages = new CenterImages();
         partialUpdatedCenterImages.setId(centerImages.getId());
 
-        partialUpdatedCenterImages.description(UPDATED_DESCRIPTION).show(UPDATED_SHOW);
+        partialUpdatedCenterImages.title(UPDATED_TITLE).description(UPDATED_DESCRIPTION);
 
         webTestClient
             .patch()
@@ -332,9 +386,10 @@ class CenterImagesResourceIT {
         CenterImages testCenterImages = centerImagesList.get(centerImagesList.size() - 1);
         assertThat(testCenterImages.getImage()).isEqualTo(DEFAULT_IMAGE);
         assertThat(testCenterImages.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
-        assertThat(testCenterImages.getTitle()).isEqualTo(DEFAULT_TITLE);
+        assertThat(testCenterImages.getImageUrl()).isEqualTo(DEFAULT_IMAGE_URL);
+        assertThat(testCenterImages.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testCenterImages.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testCenterImages.getShow()).isEqualTo(UPDATED_SHOW);
+        assertThat(testCenterImages.getShow()).isEqualTo(DEFAULT_SHOW);
     }
 
     @Test
@@ -351,6 +406,7 @@ class CenterImagesResourceIT {
         partialUpdatedCenterImages
             .image(UPDATED_IMAGE)
             .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
+            .imageUrl(UPDATED_IMAGE_URL)
             .title(UPDATED_TITLE)
             .description(UPDATED_DESCRIPTION)
             .show(UPDATED_SHOW);
@@ -370,6 +426,7 @@ class CenterImagesResourceIT {
         CenterImages testCenterImages = centerImagesList.get(centerImagesList.size() - 1);
         assertThat(testCenterImages.getImage()).isEqualTo(UPDATED_IMAGE);
         assertThat(testCenterImages.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
+        assertThat(testCenterImages.getImageUrl()).isEqualTo(UPDATED_IMAGE_URL);
         assertThat(testCenterImages.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testCenterImages.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testCenterImages.getShow()).isEqualTo(UPDATED_SHOW);

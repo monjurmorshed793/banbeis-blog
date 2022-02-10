@@ -34,6 +34,9 @@ public class Employee implements Serializable {
     @Field("email")
     private String email;
 
+    @Field("photo_url")
+    private String photoUrl;
+
     @Field("photo")
     private byte[] photo;
 
@@ -111,6 +114,19 @@ public class Employee implements Serializable {
         this.email = email;
     }
 
+    public String getPhotoUrl() {
+        return this.photoUrl;
+    }
+
+    public Employee photoUrl(String photoUrl) {
+        this.setPhotoUrl(photoUrl);
+        return this;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
+
     public byte[] getPhoto() {
         return this.photo;
     }
@@ -178,6 +194,7 @@ public class Employee implements Serializable {
             ", bnFullName='" + getBnFullName() + "'" +
             ", mobile='" + getMobile() + "'" +
             ", email='" + getEmail() + "'" +
+            ", photoUrl='" + getPhotoUrl() + "'" +
             ", photo='" + getPhoto() + "'" +
             ", photoContentType='" + getPhotoContentType() + "'" +
             "}";

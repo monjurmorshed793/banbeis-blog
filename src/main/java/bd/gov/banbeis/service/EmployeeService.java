@@ -58,6 +58,9 @@ public class EmployeeService {
                 if (employee.getEmail() != null) {
                     existingEmployee.setEmail(employee.getEmail());
                 }
+                if (employee.getPhotoUrl() != null) {
+                    existingEmployee.setPhotoUrl(employee.getPhotoUrl());
+                }
                 if (employee.getPhoto() != null) {
                     existingEmployee.setPhoto(employee.getPhoto());
                 }

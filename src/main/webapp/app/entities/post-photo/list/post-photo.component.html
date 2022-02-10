@@ -37,6 +37,7 @@
           <th scope="col" jhiSortBy="title"><span>Title</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="description"><span>Description</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="image"><span>Image</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="imageUrl"><span>Image Url</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="uploadedOn"><span>Uploaded On</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="post.title"><span>Post</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="uploadedBy.fullName"><span>Uploaded By</span> <fa-icon icon="sort"></fa-icon></th>
@@ -61,6 +62,7 @@
             </a>
             <span *ngIf="postPhoto.image">{{ postPhoto.imageContentType }}, {{ byteSize(postPhoto.image) }}</span>
           </td>
+          <td>{{ postPhoto.imageUrl }}</td>
           <td>{{ postPhoto.uploadedOn | formatMediumDatetime }}</td>
           <td>
             <div *ngIf="postPhoto.post">

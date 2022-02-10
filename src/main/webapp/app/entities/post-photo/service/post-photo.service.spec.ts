@@ -30,6 +30,7 @@ describe('PostPhoto Service', () => {
       description: 'AAAAAAA',
       imageContentType: 'image/png',
       image: 'AAAAAAA',
+      imageUrl: 'AAAAAAA',
       uploadedOn: currentDate,
     };
   });
@@ -81,6 +82,7 @@ describe('PostPhoto Service', () => {
           title: 'BBBBBB',
           description: 'BBBBBB',
           image: 'BBBBBB',
+          imageUrl: 'BBBBBB',
           uploadedOn: currentDate.format(DATE_TIME_FORMAT),
         },
         elemDefault
@@ -105,6 +107,7 @@ describe('PostPhoto Service', () => {
         {
           title: 'BBBBBB',
           description: 'BBBBBB',
+          imageUrl: 'BBBBBB',
           uploadedOn: currentDate.format(DATE_TIME_FORMAT),
         },
         new PostPhoto()
@@ -134,6 +137,7 @@ describe('PostPhoto Service', () => {
           title: 'BBBBBB',
           description: 'BBBBBB',
           image: 'BBBBBB',
+          imageUrl: 'BBBBBB',
           uploadedOn: currentDate.format(DATE_TIME_FORMAT),
         },
         elemDefault
@@ -191,7 +195,7 @@ describe('PostPhoto Service', () => {
       });
 
       it('should add only unique PostPhoto to an array', () => {
-        const postPhotoArray: IPostPhoto[] = [{ id: 'ABC' }, { id: 'CBA' }, { id: '80e04af7-0282-42f4-a686-ad45f57dcfe3' }];
+        const postPhotoArray: IPostPhoto[] = [{ id: 'ABC' }, { id: 'CBA' }, { id: '0e04af70-2822-4f4e-a86a-d45f57dcfe36' }];
         const postPhotoCollection: IPostPhoto[] = [{ id: 'ABC' }];
         expectedResult = service.addPostPhotoToCollectionIfMissing(postPhotoCollection, ...postPhotoArray);
         expect(expectedResult).toHaveLength(3);

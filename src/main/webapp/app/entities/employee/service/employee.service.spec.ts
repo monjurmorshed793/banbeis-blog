@@ -25,6 +25,7 @@ describe('Employee Service', () => {
       bnFullName: 'AAAAAAA',
       mobile: 'AAAAAAA',
       email: 'AAAAAAA',
+      photoUrl: 'AAAAAAA',
       photoContentType: 'image/png',
       photo: 'AAAAAAA',
     };
@@ -66,6 +67,7 @@ describe('Employee Service', () => {
           bnFullName: 'BBBBBB',
           mobile: 'BBBBBB',
           email: 'BBBBBB',
+          photoUrl: 'BBBBBB',
           photo: 'BBBBBB',
         },
         elemDefault
@@ -86,6 +88,7 @@ describe('Employee Service', () => {
           bnFullName: 'BBBBBB',
           mobile: 'BBBBBB',
           email: 'BBBBBB',
+          photoUrl: 'BBBBBB',
           photo: 'BBBBBB',
         },
         new Employee()
@@ -110,6 +113,7 @@ describe('Employee Service', () => {
           bnFullName: 'BBBBBB',
           mobile: 'BBBBBB',
           email: 'BBBBBB',
+          photoUrl: 'BBBBBB',
           photo: 'BBBBBB',
         },
         elemDefault
@@ -162,7 +166,7 @@ describe('Employee Service', () => {
       });
 
       it('should add only unique Employee to an array', () => {
-        const employeeArray: IEmployee[] = [{ id: 'ABC' }, { id: 'CBA' }, { id: 'e8e9abf8-da19-4cbe-8a7f-d590bdc5c7ce' }];
+        const employeeArray: IEmployee[] = [{ id: 'ABC' }, { id: 'CBA' }, { id: '8e9abf8d-a19c-4be0-a7fd-590bdc5c7ce3' }];
         const employeeCollection: IEmployee[] = [{ id: 'ABC' }];
         expectedResult = service.addEmployeeToCollectionIfMissing(employeeCollection, ...employeeArray);
         expect(expectedResult).toHaveLength(3);

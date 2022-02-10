@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -61,7 +63,7 @@ public class CenterImagesResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/center-images")
-    public Mono<ResponseEntity<CenterImages>> createCenterImages(@RequestBody CenterImages centerImages) throws URISyntaxException {
+    public Mono<ResponseEntity<CenterImages>> createCenterImages(@Valid @RequestBody CenterImages centerImages) throws URISyntaxException {
         log.debug("REST request to save CenterImages : {}", centerImages);
         if (centerImages.getId() != null) {
             throw new BadRequestAlertException("A new centerImages cannot already have an ID", ENTITY_NAME, "idexists");
@@ -93,7 +95,7 @@ public class CenterImagesResource {
     @PutMapping("/center-images/{id}")
     public Mono<ResponseEntity<CenterImages>> updateCenterImages(
         @PathVariable(value = "id", required = false) final String id,
-        @RequestBody CenterImages centerImages
+        @Valid @RequestBody CenterImages centerImages
     ) throws URISyntaxException {
         log.debug("REST request to update CenterImages : {}, {}", id, centerImages);
         if (centerImages.getId() == null) {
@@ -136,7 +138,7 @@ public class CenterImagesResource {
     @PatchMapping(value = "/center-images/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public Mono<ResponseEntity<CenterImages>> partialUpdateCenterImages(
         @PathVariable(value = "id", required = false) final String id,
-        @RequestBody CenterImages centerImages
+        @NotNull @RequestBody CenterImages centerImages
     ) throws URISyntaxException {
         log.debug("REST request to partial update CenterImages partially : {}, {}", id, centerImages);
         if (centerImages.getId() == null) {

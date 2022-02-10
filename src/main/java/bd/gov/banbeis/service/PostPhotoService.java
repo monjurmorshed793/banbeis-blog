@@ -61,6 +61,9 @@ public class PostPhotoService {
                 if (postPhoto.getImageContentType() != null) {
                     existingPostPhoto.setImageContentType(postPhoto.getImageContentType());
                 }
+                if (postPhoto.getImageUrl() != null) {
+                    existingPostPhoto.setImageUrl(postPhoto.getImageUrl());
+                }
                 if (postPhoto.getUploadedOn() != null) {
                     existingPostPhoto.setUploadedOn(postPhoto.getUploadedOn());
                 }

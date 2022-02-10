@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
@@ -26,7 +26,8 @@ export class CenterImagesUpdateComponent implements OnInit {
     id: [],
     image: [],
     imageContentType: [],
-    title: [],
+    imageUrl: [null, [Validators.required]],
+    title: [null, [Validators.required]],
     description: [],
     show: [],
     center: [],
@@ -117,6 +118,7 @@ export class CenterImagesUpdateComponent implements OnInit {
       id: centerImages.id,
       image: centerImages.image,
       imageContentType: centerImages.imageContentType,
+      imageUrl: centerImages.imageUrl,
       title: centerImages.title,
       description: centerImages.description,
       show: centerImages.show,
@@ -140,6 +142,7 @@ export class CenterImagesUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       imageContentType: this.editForm.get(['imageContentType'])!.value,
       image: this.editForm.get(['image'])!.value,
+      imageUrl: this.editForm.get(['imageUrl'])!.value,
       title: this.editForm.get(['title'])!.value,
       description: this.editForm.get(['description'])!.value,
       show: this.editForm.get(['show'])!.value,

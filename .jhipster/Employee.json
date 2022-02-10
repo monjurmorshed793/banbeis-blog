@@ -22,6 +22,10 @@
       "fieldValidateRules": ["required"]
     },
     {
+      "fieldName": "photoUrl",
+      "fieldType": "String"
+    },
+    {
       "fieldName": "photo",
       "fieldType": "byte[]",
       "fieldTypeBlobContent": "image"
